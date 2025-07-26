@@ -1,459 +1,474 @@
 // Theme Management
-let currentTheme = 'brutalist';
-
-// Mobile menu state
-let isMobileMenuOpen = false;
-
-// Debounce function for performance optimization
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Theme toggle functionality
-function toggleTheme() {
-    const body = document.body;
-    
-    if (currentTheme === 'brutalist') {
-        body.classList.remove('brutalist');
-        body.classList.add('soft');
-        currentTheme = 'soft';
-    } else {
-        body.classList.remove('soft');
-        body.classList.add('brutalist');
-        currentTheme = 'brutalist';
-    }
-    
-    // Update logo image
-    updateLogoImage();
-    
-    // Save theme preference to localStorage
-    localStorage.setItem('portfolio-theme', currentTheme);
-    
-    // Announce theme change for screen readers
-    announceThemeChange();
-}
-
-// Update logo image based on theme
-function updateLogoImage() {
-    const logoImg = document.querySelector('.logo-img');
-    if (logoImg) {
-        if (currentTheme === 'brutalist') {
-            logoImg.src = 'https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=100&h=50&fit=crop&crop=center';
-            logoImg.alt = 'sa. logo - minimal';
-        } else {
-            logoImg.src = 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=100&h=50&fit=crop&crop=center';
-            logoImg.alt = 'sa. logo - stylized';
-        }
-    }
-}
-
-// Announce theme change for accessibility
-function announceThemeChange() {
-    const announcement = document.createElement('div');
-    announcement.setAttribute('aria-live', 'polite');
-    announcement.setAttribute('aria-atomic', 'true');
-    announcement.className = 'sr-only';
-    announcement.textContent = `Theme changed to ${currentTheme === 'brutalist' ? 'brutalist' : 'soft'} mode`;
-    document.body.appendChild(announcement);
-    
-    setTimeout(() => {
-        document.body.removeChild(announcement);
-    }, 1000);
-}
-
-// Load saved theme on page load
-function loadSavedTheme() {
-    const savedTheme = localStorage.getItem('portfolio-theme');
-    if (savedTheme && (savedTheme === 'brutalist' || savedTheme === 'soft')) {
-        currentTheme = savedTheme;
-        document.body.classList.remove('brutalist', 'soft');
-        document.body.classList.add(currentTheme);
-        updateLogoImage();
-    }
-}
-
-// Smooth scrolling functions
-function scrollToTop() {
-    window.scrollTo({ 
-        top: 0, 
-        behavior: 'smooth' 
-    });
-}
-
-function scrollToSection(sectionId) {
-    const element = document.getElementById(sectionId);
-    if (element) {
-        // Close mobile menu if open
-        closeMobileMenu();
+class ThemeManager {
+    constructor() {
+        this.currentMode = 'brutalist';
+        this.body = document.body;
+        this.themeToggle = document.getElementById('theme-toggle');
+        this.logoImg = document.getElementById('logo-img');
+        this.mobileMenuLogoImg = document.getElementById('mobile-menu-logo-img');
         
-        element.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
+        // Logo sources
+        this.brutalLogo = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA4MCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjY0IiBmaWxsPSJibGFjayIvPgo8dGV4dCB4PSI0MCIgeT0iMzYiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iV29yayBTYW5zIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iOTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5zYS48L3RleHQ+Cjwvc3ZnPgo=';
+        this.softLogo = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA4MCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjY0IiBmaWxsPSJibGFjayIvPgo8dGV4dCB4PSI0MCIgeT0iMzYiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSI2MDAiIGZvbnQtc3R5bGU9ImlkYWxpYyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+c2EuPC90ZXh0Pgo8L3N2Zz4K';
+        
+        this.init();
+    }
+    
+    init() {
+        // Set initial theme
+        this.updateTheme();
+        
+        // Add event listeners
+        this.themeToggle.addEventListener('click', () => this.toggleTheme());
+        
+        // Add keyboard shortcut (Ctrl/Cmd + Shift + T)
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'T') {
+                e.preventDefault();
+                this.toggleTheme();
+            }
         });
     }
-}
-
-function scrollToContact() {
-    // Scroll to hero section where contact buttons are located
-    const heroElement = document.querySelector('.hero');
-    if (heroElement) {
-        // Close mobile menu if open
-        closeMobileMenu();
-        
-        heroElement.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
-}
-
-// Mobile menu functionality
-function toggleMobileMenu() {
-    const navButtons = document.querySelector('.nav-buttons');
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     
-    if (navButtons) {
-        isMobileMenuOpen = !isMobileMenuOpen;
+    toggleTheme() {
+        this.currentMode = this.currentMode === 'brutalist' ? 'soft' : 'brutalist';
+        this.updateTheme();
+    }
+    
+    updateTheme() {
+        // Update body class
+        this.body.className = `${this.currentMode}-mode`;
         
-        if (isMobileMenuOpen) {
-            navButtons.classList.add('mobile-menu-open');
-            mobileMenuBtn.setAttribute('aria-expanded', 'true');
-            mobileMenuBtn.setAttribute('aria-label', 'Close mobile menu');
-            
-            // Trap focus in mobile menu
-            trapFocusInMobileMenu();
+        // Update logos
+        const logoSrc = this.currentMode === 'brutalist' ? this.brutalLogo : this.softLogo;
+        this.logoImg.src = logoSrc;
+        this.mobileMenuLogoImg.src = logoSrc;
+        
+        // Update theme toggle icon
+        this.updateThemeToggleIcon();
+        
+        // Update text content based on mode
+        this.updateTextContent();
+    }
+    
+    updateThemeToggleIcon() {
+        const icon = this.themeToggle.querySelector('.theme-toggle-icon');
+        
+        if (this.currentMode === 'brutalist') {
+            // Circle icon for brutalist mode
+            icon.innerHTML = '<circle cx="12" cy="12" r="10"></circle>';
         } else {
-            navButtons.classList.remove('mobile-menu-open');
-            mobileMenuBtn.setAttribute('aria-expanded', 'false');
-            mobileMenuBtn.setAttribute('aria-label', 'Open mobile menu');
+            // Square icon for soft mode
+            icon.innerHTML = '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>';
         }
     }
-}
-
-function closeMobileMenu() {
-    const navButtons = document.querySelector('.nav-buttons');
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     
-    if (navButtons && isMobileMenuOpen) {
-        navButtons.classList.remove('mobile-menu-open');
-        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-        mobileMenuBtn.setAttribute('aria-label', 'Open mobile menu');
-        isMobileMenuOpen = false;
-    }
-}
-
-// Focus trap for mobile menu accessibility
-function trapFocusInMobileMenu() {
-    const navButtons = document.querySelector('.nav-buttons');
-    if (!navButtons || !isMobileMenuOpen) return;
-    
-    const focusableElements = navButtons.querySelectorAll('button');
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-    
-    function handleTabKey(e) {
-        if (e.key === 'Tab') {
-            if (e.shiftKey) {
-                if (document.activeElement === firstElement) {
-                    lastElement.focus();
-                    e.preventDefault();
-                }
+    updateTextContent() {
+        // Update navigation buttons
+        const navButtons = document.querySelectorAll('.nav-button');
+        const navTexts = ['Work', 'About', 'Playground', 'Contact'];
+        
+        navButtons.forEach((button, index) => {
+            if (this.currentMode === 'brutalist') {
+                button.textContent = navTexts[index].toUpperCase();
             } else {
-                if (document.activeElement === lastElement) {
-                    firstElement.focus();
-                    e.preventDefault();
-                }
+                button.textContent = navTexts[index];
             }
+        });
+        
+        // Update mobile menu buttons
+        const mobileMenuButtons = document.querySelectorAll('.mobile-menu-button');
+        const mobileNavTexts = ['Work', 'About', 'Playground'];
+        
+        mobileMenuButtons.forEach((button, index) => {
+            if (this.currentMode === 'brutalist') {
+                button.textContent = mobileNavTexts[index].toUpperCase();
+            } else {
+                button.textContent = mobileNavTexts[index];
+            }
+        });
+        
+        // Update hero content
+        this.updateHeroContent();
+        
+        // Update about cards
+        this.updateAboutCards();
+        
+        // Update project cards
+        this.updateProjectCards();
+        
+        // Update footer
+        this.updateFooter();
+        
+        // Update mobile menu social title
+        this.updateMobileMenuSocial();
+    }
+    
+    updateHeroContent() {
+        const heroTitle = document.querySelector('.hero-title');
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        const heroDescriptionAccent = document.querySelector('.hero-description-accent');
+        const heroDescription = document.querySelector('.hero-description p');
+        
+        if (this.currentMode === 'brutalist') {
+            heroTitle.textContent = 'SHIVA AMBATI';
+            heroSubtitle.textContent = 'DESIGNING GAMES | EX-SAMSUNG | M.DES @ IISC BENGALURU';
+            heroDescriptionAccent.textContent = 'PRODUCT DESIGN X PSYCHOLOGY X TECHNOLOGY';
+            heroDescription.textContent = 'I\'M PASSIONATE ABOUT PRODUCTS & HOW THEY IMPACT LIVES. ON A MISSION TO MERGE TECH KNOW HOW WITH HUMAN PSYCHOLOGY FOR IMPACTFUL USER EXPERIENCES. OBSESSED WITH DECODING THE "WHY" OF USER BEHAVIOUR, CONNECTING DOTS & SIMPLIFYING COMPLEX PROBLEMS.';
+        } else {
+            heroTitle.textContent = 'Hi, I\'m Shiva Ambati';
+            heroSubtitle.textContent = 'Designing Games | Ex-Samsung | M.Des @ IISc Bengaluru';
+            heroDescriptionAccent.textContent = 'Product Design X Psychology X Technology';
+            heroDescription.textContent = 'I\'m passionate about products & how they impact lives. On a mission to merge tech know how with human psychology for impactful user experiences. Obsessed with decoding the "why" of user behaviour, connecting dots & simplifying complex problems.';
         }
     }
     
-    navButtons.addEventListener('keydown', handleTabKey);
-    
-    // Remove event listener when menu closes
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.attributeName === 'class' && !navButtons.classList.contains('mobile-menu-open')) {
-                navButtons.removeEventListener('keydown', handleTabKey);
-                observer.disconnect();
+    updateAboutCards() {
+        const aboutCards = document.querySelectorAll('.about-card');
+        const cardData = [
+            {
+                title: 'A First Principle Thinker',
+                description: 'Breaking down problems, process & logic to their core to create unique & robust solutions with the fundamental blocks.'
+            },
+            {
+                title: 'Going beyond obvious',
+                description: 'Uncovering the hidden insights beyond the obvious data, connecting dots & finding patterns.'
+            },
+            {
+                title: 'Outcome over Output',
+                description: 'Put efforts into the tasks & activities that clearly impacts product vision. Prioritize outcome & impact over output & process.'
+            },
+            {
+                title: 'Interdisciplinary & Versatile',
+                description: 'Value multiplier through unique & meaningful contribution across the product development cycle.'
+            },
+            {
+                title: 'Critically Objective & Open Minded',
+                description: 'Rational & evidence driven decisions to eliminate internal & external bias.'
+            }
+        ];
+        
+        aboutCards.forEach((card, index) => {
+            const title = card.querySelector('.about-card-title');
+            const description = card.querySelector('.about-card-description');
+            
+            if (this.currentMode === 'brutalist') {
+                title.textContent = cardData[index].title.toUpperCase();
+                description.textContent = cardData[index].description.toUpperCase();
+            } else {
+                title.textContent = cardData[index].title;
+                description.textContent = cardData[index].description;
             }
         });
-    });
-    
-    observer.observe(navButtons, { attributes: true });
-}
-
-// Keyboard shortcut handler
-function handleKeyboardShortcuts(event) {
-    // Ctrl+Shift+T (or Cmd+Shift+T on Mac) to toggle theme
-    if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'T') {
-        event.preventDefault();
-        toggleTheme();
     }
     
-    // Escape to close mobile menu
-    if (event.key === 'Escape' && isMobileMenuOpen) {
-        closeMobileMenu();
+    updateProjectCards() {
+        const projectCards = document.querySelectorAll('.project-card');
+        const projectData = [
+            {
+                company: 'Samsung',
+                title: 'Making Photo Edits Effortless',
+                problem: 'Users capture a lot of photos but only few end up share worthy. Often due to lack of editing skill, knowledge & time',
+                approach: 'Conceptualised an AI-suggested nudge based edit experience that surface at the right moment minimising friction, maximising delight.',
+                linkText: 'View case study'
+            },
+            {
+                company: 'Samsung',
+                title: 'Reimagining Search',
+                problem: 'Users often unaware of some advanced native features end up installing third party apps.',
+                approach: 'Search needed to understand user intent, not just keywords. It had to feel intuitive yet powerful. Enhanced search with synonyms, intent mapping, and contextual quick actions',
+                linkText: 'View prototype'
+            }
+        ];
+        
+        projectCards.forEach((card, index) => {
+            const company = card.querySelector('.project-company');
+            const title = card.querySelector('.project-title');
+            const problemTitle = card.querySelector('.project-section-title');
+            const problemContent = card.querySelector('.project-section-content');
+            const approachTitle = card.querySelectorAll('.project-section-title')[1];
+            const approachContent = card.querySelectorAll('.project-section-content')[1];
+            const linkBtn = card.querySelector('.project-link-btn');
+            
+            if (this.currentMode === 'brutalist') {
+                company.textContent = projectData[index].company.toUpperCase();
+                title.textContent = projectData[index].title.toUpperCase();
+                problemTitle.textContent = 'PROBLEM:';
+                problemContent.textContent = projectData[index].problem.toUpperCase();
+                approachTitle.textContent = 'APPROACH:';
+                approachContent.textContent = projectData[index].approach.toUpperCase();
+                linkBtn.textContent = projectData[index].linkText.toUpperCase() + ' →';
+            } else {
+                company.textContent = projectData[index].company;
+                title.textContent = projectData[index].title;
+                problemTitle.textContent = 'Problem';
+                problemContent.textContent = projectData[index].problem;
+                approachTitle.textContent = 'Approach';
+                approachContent.textContent = projectData[index].approach;
+                linkBtn.textContent = projectData[index].linkText + ' →';
+            }
+        });
+    }
+    
+    updateFooter() {
+        const footerBrandText = document.querySelector('.footer-brand-text');
+        const footerLinks = document.querySelectorAll('.footer-link');
+        const footerTexts = ['LinkedIn', 'Mail', 'Medium'];
+        
+        if (this.currentMode === 'brutalist') {
+            footerBrandText.textContent = 'SHIVA AMBATI ⏤ 2024';
+            footerLinks.forEach((link, index) => {
+                if (index < footerTexts.length) {
+                    // Update text content while preserving SVG for Medium link
+                    if (index === 2) {
+                        const textNode = Array.from(link.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
+                        if (textNode) {
+                            textNode.textContent = footerTexts[index].toUpperCase();
+                        } else {
+                            link.appendChild(document.createTextNode(footerTexts[index].toUpperCase()));
+                        }
+                    } else {
+                        link.textContent = footerTexts[index].toUpperCase();
+                    }
+                }
+            });
+        } else {
+            footerBrandText.textContent = 'Shiva Ambati ⏤ 2024';
+            footerLinks.forEach((link, index) => {
+                if (index < footerTexts.length) {
+                    // Update text content while preserving SVG for Medium link
+                    if (index === 2) {
+                        const textNode = Array.from(link.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
+                        if (textNode) {
+                            textNode.textContent = footerTexts[index];
+                        } else {
+                            link.appendChild(document.createTextNode(footerTexts[index]));
+                        }
+                    } else {
+                        link.textContent = footerTexts[index];
+                    }
+                }
+            });
+        }
+    }
+    
+    updateMobileMenuSocial() {
+        const mobileMenuSocialTitle = document.querySelector('.mobile-menu-social-title');
+        
+        if (this.currentMode === 'brutalist') {
+            mobileMenuSocialTitle.textContent = 'CONNECT WITH ME';
+        } else {
+            mobileMenuSocialTitle.textContent = 'Connect with me';
+        }
     }
 }
 
-// Animation on scroll for cards
-function animateOnScroll() {
-    if ('IntersectionObserver' in window) {
+// Navigation Manager
+class NavigationManager {
+    constructor() {
+        this.init();
+    }
+    
+    init() {
+        // Add click listeners to navigation buttons
+        const navButtons = document.querySelectorAll('.nav-button');
+        const logoButton = document.getElementById('logo-button');
+        
+        navButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const section = e.target.dataset.section;
+                this.scrollToSection(section);
+            });
+        });
+        
+        // Logo button scrolls to top
+        logoButton.addEventListener('click', () => {
+            window.scrollTo({ 
+                top: 0, 
+                behavior: 'smooth' 
+            });
+        });
+    }
+    
+    scrollToSection(sectionId) {
+        let element;
+        
+        if (sectionId === 'hero') {
+            // For contact, scroll to hero section
+            element = document.querySelector('.hero');
+        } else {
+            element = document.getElementById(sectionId);
+        }
+        
+        if (element) {
+            element.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+}
+
+// Mobile Menu Manager
+class MobileMenuManager {
+    constructor() {
+        this.mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        this.mobileMenuButton = document.getElementById('mobile-menu-button');
+        this.mobileMenuClose = document.getElementById('mobile-menu-close');
+        this.mobileMenuButtons = document.querySelectorAll('.mobile-menu-button');
+        this.body = document.body;
+        
+        this.isOpen = false;
+        this.init();
+    }
+    
+    init() {
+        // Mobile menu toggle
+        this.mobileMenuButton.addEventListener('click', () => {
+            this.toggleMobileMenu();
+        });
+        
+        // Close mobile menu
+        this.mobileMenuClose.addEventListener('click', () => {
+            this.closeMobileMenu();
+        });
+        
+        // Close mobile menu when clicking outside
+        this.mobileMenuOverlay.addEventListener('click', (e) => {
+            if (e.target === this.mobileMenuOverlay) {
+                this.closeMobileMenu();
+            }
+        });
+        
+        // Mobile menu navigation
+        this.mobileMenuButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const section = e.target.dataset.section;
+                this.scrollToSection(section);
+                this.closeMobileMenu();
+            });
+        });
+        
+        // Close mobile menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen) {
+                this.closeMobileMenu();
+            }
+        });
+    }
+    
+    toggleMobileMenu() {
+        if (this.isOpen) {
+            this.closeMobileMenu();
+        } else {
+            this.openMobileMenu();
+        }
+    }
+    
+    openMobileMenu() {
+        this.isOpen = true;
+        this.mobileMenuOverlay.classList.add('active');
+        this.mobileMenuButton.classList.add('mobile-menu-open');
+        this.body.style.overflow = 'hidden';
+    }
+    
+    closeMobileMenu() {
+        this.isOpen = false;
+        this.mobileMenuOverlay.classList.remove('active');
+        this.mobileMenuButton.classList.remove('mobile-menu-open');
+        this.body.style.overflow = '';
+    }
+    
+    scrollToSection(sectionId) {
+        let element;
+        
+        if (sectionId === 'hero') {
+            element = document.querySelector('.hero');
+        } else {
+            element = document.getElementById(sectionId);
+        }
+        
+        if (element) {
+            element.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+}
+
+// Animation Manager
+class AnimationManager {
+    constructor() {
+        this.init();
+    }
+    
+    init() {
+        // Add intersection observer for scroll animations
+        this.setupScrollAnimations();
+    }
+    
+    setupScrollAnimations() {
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Add staggered animation delay for soft mode
-                    if (currentTheme === 'soft') {
-                        entry.target.style.transitionDelay = `${index * 100}ms`;
-                    }
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    
-                    // Unobserve after animation
-                    observer.unobserve(entry.target);
+                    entry.target.classList.add('animate-in');
                 }
             });
         }, observerOptions);
-
-        const cards = document.querySelectorAll('.about-card, .project-card');
-        cards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
+        
+        // Observe sections for animation
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            observer.observe(section);
         });
     }
 }
 
-// Handle scroll events for navigation bar effects
-const handleScroll = debounce(() => {
-    const nav = document.querySelector('.navigation');
-    const scrollY = window.scrollY;
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize all managers
+    const themeManager = new ThemeManager();
+    const navigationManager = new NavigationManager();
+    const mobileMenuManager = new MobileMenuManager();
+    const animationManager = new AnimationManager();
     
-    // Add scroll shadow in soft mode
-    if (currentTheme === 'soft' && nav) {
-        if (scrollY > 50) {
-            nav.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-        } else {
-            nav.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+    // Add smooth scroll behavior
+    document.documentElement.style.scrollBehavior = 'smooth';
+    
+    // Prevent body scroll when mobile menu is open
+    document.addEventListener('touchmove', (e) => {
+        if (mobileMenuManager.isOpen) {
+            e.preventDefault();
         }
-    }
-}, 10);
-
-// Handle window resize events
-const handleResize = debounce(() => {
-    // Close mobile menu on resize to desktop
-    if (window.innerWidth >= 768 && isMobileMenuOpen) {
-        closeMobileMenu();
-    }
+    }, { passive: false });
     
-    // Update theme toggle position for better mobile experience
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (themeToggle && window.innerWidth < 768) {
-        themeToggle.style.bottom = '24px';
-        themeToggle.style.right = '24px';
-        themeToggle.style.left = 'auto';
-        themeToggle.style.transform = 'none';
-    } else if (themeToggle) {
-        themeToggle.style.bottom = '32px';
-        themeToggle.style.left = '50%';
-        themeToggle.style.right = 'auto';
-        themeToggle.style.transform = 'translateX(-50%)';
-    }
-}, 100);
-
-// Add hover effects for project cards
-function initProjectCardHovers() {
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    projectCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            if (currentTheme === 'soft' && window.innerWidth >= 768) {
-                this.style.transform = 'translateY(-4px)';
-                this.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = currentTheme === 'soft' ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none';
-        });
+    // Handle resize events
+    window.addEventListener('resize', () => {
+        // Close mobile menu on resize to desktop
+        if (window.innerWidth >= 768 && mobileMenuManager.isOpen) {
+            mobileMenuManager.closeMobileMenu();
+        }
     });
-}
-
-// Add focus management for accessibility
-function initFocusManagement() {
-    const focusableElements = document.querySelectorAll('button, a, input, textarea, select, [tabindex]');
-    
-    focusableElements.forEach(element => {
-        // Add focus visible support
-        element.addEventListener('focus', function() {
-            if (this.matches(':focus-visible')) {
-                this.style.outline = currentTheme === 'brutalist' 
-                    ? '2px solid #dc2626' 
-                    : '2px solid #60a5fa';
-                this.style.outlineOffset = '2px';
-            }
-        });
-        
-        element.addEventListener('blur', function() {
-            this.style.outline = '';
-            this.style.outlineOffset = '';
-        });
-    });
-}
-
-// Handle clicks outside mobile menu
-function handleClickOutside(event) {
-    const navButtons = document.querySelector('.nav-buttons');
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    
-    if (isMobileMenuOpen && 
-        navButtons && 
-        !navButtons.contains(event.target) && 
-        !mobileMenuBtn.contains(event.target)) {
-        closeMobileMenu();
-    }
-}
-
-// Preload images for better performance
-function preloadImages() {
-    const imageUrls = [
-        'https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=100&h=50&fit=crop&crop=center',
-        'https://images.unsplash.com/photo-1558655146-d09347e92766?w=100&h=50&fit=crop&crop=center',
-        'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop',
-        'https://images.unsplash.com/photo-1567449303154-e91cddfb3fb7?w=800&h=600&fit=crop'
-    ];
-    
-    imageUrls.forEach(url => {
-        const img = new Image();
-        img.src = url;
-    });
-}
-
-// Initialize all functionality when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Load saved theme first
-    loadSavedTheme();
-    
-    // Initialize mobile menu functionality
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-        mobileMenuBtn.setAttribute('aria-label', 'Open mobile menu');
-    }
-    
-    // Initialize scroll animations
-    animateOnScroll();
-    
-    // Initialize project card hovers
-    initProjectCardHovers();
-    
-    // Initialize focus management
-    initFocusManagement();
-    
-    // Add keyboard shortcuts
-    document.addEventListener('keydown', handleKeyboardShortcuts);
-    
-    // Add click outside handler
-    document.addEventListener('click', handleClickOutside);
-    
-    // Add theme toggle functionality
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', toggleTheme);
-    }
-    
-    // Add scroll and resize handlers
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize);
-    
-    // Preload images
-    preloadImages();
     
     // Add loading animation
+    document.body.style.opacity = '0';
     setTimeout(() => {
         document.body.style.opacity = '1';
         document.body.style.transition = 'opacity 0.5s ease-in-out';
     }, 100);
-    
-    // Ensure proper initial theme toggle position
-    handleResize();
 });
 
-// Add initial loading state
-document.body.style.opacity = '0';
-
-// Performance optimization: Use passive listeners where appropriate
-if ('addEventListener' in window) {
-    const supportsPassive = (() => {
-        let supportsPassive = false;
-        try {
-            const opts = Object.defineProperty({}, 'passive', {
-                get() {
-                    supportsPassive = true;
-                    return false;
-                }
-            });
-            window.addEventListener('test', null, opts);
-            window.removeEventListener('test', null, opts);
-        } catch (e) {}
-        return supportsPassive;
-    })();
-    
-    // Use passive listeners for better scroll performance
-    if (supportsPassive) {
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        window.addEventListener('touchstart', () => {}, { passive: true });
-    }
-}
-
-// Service Worker registration for better performance (if needed)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        // Uncomment if you have a service worker
-        // navigator.serviceWorker.register('/sw.js')
-        //     .then(registration => console.log('SW registered'))
-        //     .catch(registrationError => console.log('SW registration failed'));
-    });
-}
-
-// Export functions for global access
-window.portfolioFunctions = {
-    toggleTheme,
-    scrollToTop,
-    scrollToSection,
-    scrollToContact,
-    toggleMobileMenu,
-    closeMobileMenu
-};
-
-// Analytics and error tracking (placeholder)
-window.addEventListener('error', (event) => {
-    console.error('JavaScript error:', event.error);
-    // Add error tracking service here if needed
+// Handle page load
+window.addEventListener('load', () => {
+    // Ensure all images are loaded and layout is complete
+    setTimeout(() => {
+        // Trigger any additional animations or adjustments
+        document.body.classList.add('loaded');
+    }, 200);
 });
-
-// Performance monitoring
-if ('performance' in window) {
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            const perfData = performance.getEntriesByType('navigation')[0];
-            console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart);
-        }, 0);
-    });
-}
