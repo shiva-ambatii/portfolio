@@ -1,0 +1,84 @@
+/* style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap');
+
+/* Light mode default styles */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #111111;
+  --link-color: #0070f3;
+  --nav-bg: #f9f9f9;
+}
+
+/* Dark mode overrides */
+body.dark-mode {
+  --bg-color: #111111;
+  --text-color: #eeeeee;
+  --link-color: #66ccff;
+  --nav-bg: #1a1a1a;
+}
+
+body {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Custom Navigation Header */
+nav.custom-header {
+  background: var(--nav-bg);
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+nav.custom-header a {
+  margin: 0 1rem;
+  font-weight: 600;
+}
+
+/* Toggle Button */
+.theme-toggle-btn {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+body.dark-mode .theme-toggle-btn {
+  background: #fff;
+  color: #000;
+}
+
+/* Section Styling */
+section {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
