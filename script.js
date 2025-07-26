@@ -1,6 +1,5 @@
 // Global state
 let currentTheme = 'brutalist';
-let scrollY = 0;
 
 // DOM elements
 const app = document.getElementById('app');
@@ -14,8 +13,6 @@ const hero = document.querySelector('.hero');
 const about = document.querySelector('.about');
 const projects = document.querySelector('.projects');
 const footer = document.querySelector('.footer');
-const parallaxBg1 = document.querySelector('.parallax-bg-1');
-const parallaxBg2 = document.querySelector('.parallax-bg-2');
 
 // Theme content
 const themeContent = {
@@ -26,7 +23,7 @@ const themeContent = {
         heroDescription: "I'M PASSIONATE ABOUT PRODUCTS & HOW THEY IMPACT LIVES. ON A MISSION TO MERGE TECH KNOW HOW WITH HUMAN PSYCHOLOGY FOR IMPACTFUL USER EXPERIENCES. OBSESSED WITH DECODING THE \"WHY\" OF USER BEHAVIOUR, CONNECTING DOTS & SIMPLIFYING COMPLEX PROBLEMS.",
         navButtons: ['WORK', 'ABOUT', 'PLAY'],
         footerName: 'SHIVA AMBATI ⏤ 2024',
-        footerLinks: ['LINKEDIN', 'MAIL', 'INSTAGRAM'],
+        footerLinks: ['LINKEDIN', 'MAIL', 'MEDIUM'],
         projectTitles: [
             '01 / EDIT SUGGESTIONS - SAMSUNG GALLERY',
             '02 / ENHANCED SEARCH'
@@ -39,7 +36,8 @@ const themeContent = {
             'INTERDISCIPLINARY & VERSATILE',
             'CRITICALLY OBJECTIVE & OPEN MINDED'
         ],
-        activitiesLabel: 'KEY ACTIVITIES:'
+        activitiesLabel: 'KEY ACTIVITIES:',
+        heroSocialText: ['LINKEDIN', 'EMAIL', 'MEDIUM']
     },
     soft: {
         heroTitle: "Hi, I'm Shiva Ambati",
@@ -48,7 +46,7 @@ const themeContent = {
         heroDescription: "I'm passionate about products & how they impact lives. On a mission to merge tech know how with human psychology for impactful user experiences. Obsessed with decoding the \"why\" of user behaviour, connecting dots & simplifying complex problems.",
         navButtons: ['Work', 'About', 'Playground'],
         footerName: 'Shiva Ambati ⏤ 2024',
-        footerLinks: ['LinkedIn', 'Mail', 'Instagram'],
+        footerLinks: ['LinkedIn', 'Mail', 'Medium'],
         projectTitles: [
             '01 / Edit Suggestions - Samsung Gallery',
             '02 / Enhanced Search'
@@ -61,7 +59,8 @@ const themeContent = {
             'Interdisciplinary & Versatile',
             'Critically Objective & Open Minded'
         ],
-        activitiesLabel: 'Key Activities:'
+        activitiesLabel: 'Key Activities:',
+        heroSocialText: ['LinkedIn', 'Email', 'Medium']
     }
 };
 
@@ -85,9 +84,6 @@ function setupEventListeners() {
             scrollToSection(section);
         });
     });
-    
-    // Scroll events
-    window.addEventListener('scroll', handleScroll);
     
     // Keyboard shortcuts
     document.addEventListener('keydown', handleKeydown);
@@ -129,6 +125,18 @@ function updateTheme() {
     updateElementClasses(heroSubtitle, 'hero-subtitle-text', isSoft);
     updateElementClasses(heroTagline, 'hero-tagline', isSoft);
     updateElementClasses(heroDescription, 'hero-description-text', isSoft);
+    
+    // Update contact links in header
+    const contactLinks = document.querySelectorAll('.contact-link');
+    contactLinks.forEach(link => updateElementClasses(link, 'contact-link', isSoft));
+    
+    // Update hero social links
+    const heroSocialLinks = document.querySelectorAll('.hero-social-link');
+    const heroSocialTexts = document.querySelectorAll('.hero-social-text');
+    heroSocialLinks.forEach(link => updateElementClasses(link, 'hero-social-link', isSoft));
+    heroSocialTexts.forEach((text, index) => {
+        text.textContent = content.heroSocialText[index];
+    });
     
     // Update navigation
     const navButtons = document.querySelectorAll('.nav-btn');
@@ -224,47 +232,6 @@ function scrollToSection(sectionId) {
     }
 }
 
-// Handle scroll events
-function handleScroll() {
-    scrollY = window.scrollY;
-    
-    // Parallax effects for soft mode
-    if (currentTheme === 'soft') {
-        if (parallaxBg1) {
-            parallaxBg1.style.transform = `translateY(${scrollY * 0.5}px)`;
-        }
-        if (parallaxBg2) {
-            parallaxBg2.style.transform = `translateY(${scrollY * 0.3}px)`;
-        }
-        
-        // Hero parallax
-        if (heroTitle && currentTheme === 'soft') {
-            heroTitle.style.transform = `translateY(${scrollY * 0.1}px)`;
-        }
-        
-        const heroSubtitleContainer = document.querySelector('.hero-subtitle');
-        if (heroSubtitleContainer && currentTheme === 'soft') {
-            heroSubtitleContainer.style.transform = `translateY(${scrollY * 0.05}px)`;
-        }
-        
-        const heroDescriptionContainer = document.querySelector('.hero-description');
-        if (heroDescriptionContainer && currentTheme === 'soft') {
-            heroDescriptionContainer.style.transform = `translateY(${scrollY * 0.02}px)`;
-        }
-    } else {
-        // Reset transforms for brutalist mode
-        if (parallaxBg1) parallaxBg1.style.transform = '';
-        if (parallaxBg2) parallaxBg2.style.transform = '';
-        if (heroTitle) heroTitle.style.transform = '';
-        
-        const heroSubtitleContainer = document.querySelector('.hero-subtitle');
-        if (heroSubtitleContainer) heroSubtitleContainer.style.transform = '';
-        
-        const heroDescriptionContainer = document.querySelector('.hero-description');
-        if (heroDescriptionContainer) heroDescriptionContainer.style.transform = '';
-    }
-}
-
 // Keyboard shortcuts
 function handleKeydown(event) {
     // Ctrl+Shift+T (or Cmd+Shift+T on Mac)
@@ -276,8 +243,8 @@ function handleKeydown(event) {
 
 // Handle resize
 function handleResize() {
-    // Trigger scroll to update parallax positions
-    handleScroll();
+    // Any resize-specific logic can go here
+    console.log('Window resized');
 }
 
 // Intersection Observer for animations
@@ -312,5 +279,5 @@ document.addEventListener('DOMContentLoaded', init);
 
 // Update scroll on window load to ensure proper initial positioning
 window.addEventListener('load', () => {
-    handleScroll();
+    console.log('Portfolio loaded successfully');
 });
