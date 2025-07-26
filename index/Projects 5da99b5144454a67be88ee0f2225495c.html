@@ -1,0 +1,694 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Projects</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-default { background-color: rgba(84, 72, 49, 0.08); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5da99b51-4445-4a67-be88-ee0f2225495c" class="page sans"><header><img class="page-cover-image" src="Projects%205da99b5144454a67be88ee0f2225495c/Trans_cover.svg" style="object-position:center 42.36%"/><h1 class="page-title">Projects</h1><p class="page-description"></p></header><div class="page-body"><p id="c6c229de-9381-4c94-962b-655ada3ac718" class="">
+</p><h3 id="794a734c-0d84-40e3-94d9-a5fbe25b749b" class="">Selected projects <mark class="highlight-gray">(Samsung)</mark></h3><div><hr id="4159eddb-514f-4d33-8828-303abca1d542"/><div id="e46e0c4a-d3d4-47e5-85f6-17e71f2a5166" class="column-list"><div id="5023cb7e-1d65-4515-9892-df006119f295" style="width:18.75%" class="column"><h3 id="dcd3c295-a1f7-4807-b6e8-34e83bf448ce" class="">    </h3><p id="3fd73517-72da-48da-9d91-77a43118e3c7" class=""><mark class="highlight-gray">2023<br/>Samsung<br/></mark></p><p id="29315936-12a4-4618-a2ba-5cf37d5a48f5" class="">
+</p></div><div id="975e7a58-a1d0-43a7-8dc7-180468cc8df0" style="width:93.75%" class="column"><h3 id="c43c94ef-2327-4be3-8052-bd316b70cb6c" class="">Edit Suggestions - Samsung Gallery</h3><p id="11981b74-db4c-4ebb-a406-da5cd741749d" class=""><mark class="highlight-gray">The business objective for Samsung as a smartphone OEM is to increase native experience timeshare to establish differentiation against competition with exclusive features.</mark></p><p id="370b41ac-ac65-4c5a-aa0e-9d8ef5d97918" class=""><mark class="highlight-gray">In the visual journey of capture, edit &amp; share, research shows that many photos are taken during important moments, but only few are  shareworthy. This is primarily due to time constraints, unable to correlate right parameters for desired output, unawareness of tools and features. This concept simplifies the journey &amp; increases the share-worthiness of photos.<br/><br/></mark></p><figure id="25c884d3-f30d-4339-907b-f7756f6308ba" class="image"><a href="Projects%205da99b5144454a67be88ee0f2225495c/Untitled.png"><img style="width:550.8125px" src="Projects%205da99b5144454a67be88ee0f2225495c/Untitled.png"/></a><figcaption><em>Image only for feature reference and does not represent the concept proposed.</em></figcaption></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="96781be0-0f3e-46a6-9278-41106b6ca092"><div style="font-size:1.5em"><img class="icon" src="https://www.notion.so/icons/checkmark-line_lightgray.svg"/></div><div style="width:100%"><strong><mark class="highlight-gray">Key Activities: </mark></strong><mark class="highlight-gray">Qualitative Research, Usage Data Analysis, Competitve Benchmarking, UX Design, UI Design.</mark></div></figure></div></div></div><div><hr id="6b1d2736-b3cd-4085-a7e0-6012d64f7a81"/><div id="89174b03-36e0-4bec-bbbb-477a74c8d588" class="column-list"><div id="48304014-86e0-428a-a8df-a18cfa8d8946" style="width:18.75%" class="column"><h3 id="450dd7f3-9fcd-45a2-84f0-3e6939083268" class="">    </h3><p id="5dcfe156-24db-4b36-984f-04914328542d" class=""><mark class="highlight-gray">2023<br/>Samsung<br/></mark></p></div><div id="2a0d8f69-fc80-47f4-bedd-17fabe681813" style="width:93.75%" class="column"><h3 id="2ce26ecf-c023-40f1-9a6d-e18faeba8c66" class="">Enhanced Search </h3><p id="968d507b-5ebc-4d35-bc2f-e11fe7329bca" class=""><mark class="highlight-gray">Smartphone users often struggle to find and use native features, leading to a reliance on third-party apps. The approach of this concept is to make features searchable within the native search, suggest related features based on search phrases, and provide quick actions from apps. This includes showing the most likely actions to be taken &amp; navigations after a search. Further, enhancing capabilities with ability to search with synonyms and related words.</mark></p><p id="b9c68e8f-ef1e-4134-a8f8-8b9d1d022aa0" class="">
+</p><figure id="13153e96-03e0-481f-80a1-b85c37536c98" class="image"><a href="Projects%205da99b5144454a67be88ee0f2225495c/Untitled%201.png"><img style="width:550.8203125px" src="Projects%205da99b5144454a67be88ee0f2225495c/Untitled%201.png"/></a><figcaption><em>Image only for feature reference and does not represent the concept proposed.</em></figcaption></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="da61c90a-654e-47ba-bebb-6788a60ef60e"><div style="font-size:1.5em"><img class="icon" src="https://www.notion.so/icons/checkmark-line_lightgray.svg"/></div><div style="width:100%"><strong><mark class="highlight-gray">Key Activities: </mark></strong><mark class="highlight-gray">Qualitative Research, Usage Data Analysis, Competitve Benchmarking, UX Design.</mark></div></figure></div></div></div><div><hr id="b2e912d1-7658-4491-a932-5e38eb45b135"/><div id="c8d75f66-79ad-4231-92b7-100bd5ab6acc" class="column-list"><div id="6b3ac424-949f-476c-9256-d739d9a8d7c7" style="width:18.75%" class="column"><h3 id="8d975366-6d71-4bf2-90d1-35967eca6757" class="">    </h3><p id="842b554a-0da5-49b1-8f89-0f3fe8e87efa" class=""><mark class="highlight-gray">2023<br/>Samsung<br/></mark></p><p id="6fa6f8b5-ff6e-4da5-a878-79d2837f9542" class="">
+</p></div><div id="2338e374-8725-4453-b4f9-a213c40ef068" style="width:93.75%" class="column"><h3 id="aa3a2ac1-5e32-4fe0-8142-3263ac1fedab" class="">Chakra - Camera Experience Research </h3><p id="c232f2ac-505d-4de4-b198-eb1050476af2" class=""><mark class="highlight-gray">Camera is a key buying factor for the majority of Indian smartphone users. Due to the high usage and impact of social media, especially among younger users with evolved needs.</mark></p><p id="9d424a3a-1c2c-44f5-9f54-1209a4c09c30" class=""><strong><mark class="highlight-gray">Research Objective:</mark></strong><mark class="highlight-gray">  Innovate camera and gallery features to position Samsung smartphones as leaders in the Indian market. Explore user capture/edit behaviors, decode what is a good photo/ video and assess differences across demographics and price tiers. Uncover insights into capture motivations and editing intentions. </mark></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="8ee278a0-2827-4107-aaac-7d5228635556"><div style="font-size:1.5em"><img class="icon" src="https://www.notion.so/icons/checkmark-line_lightgray.svg"/></div><div style="width:100%"><strong><mark class="highlight-gray">Key Activities:</mark></strong><mark class="highlight-gray"> Qualitative Research to identify, Usage Data Analysis, Concept ideation, Stakeholder alignment, Quantitative Research to validate concepts. </mark></div></figure></div></div></div><p id="aad07189-736e-4826-808e-4c5691ae9e3c" class="">
+</p><p id="88ada11f-8e5a-42ca-b3ea-02eabdc4827e" class="">
+</p><h3 id="08b64863-7302-4a32-b3cf-adce6e010104" class="">Selected projects <mark class="highlight-gray">(Carestack)</mark></h3><div><hr id="da502760-d2f9-4f65-939e-c3fe6e963190"/><div id="e9e5167e-0f88-458e-8961-d87f60b4da1d" class="column-list"><div id="603382a2-36c8-4adb-9425-587ab5bf8b12" style="width:18.75%" class="column"><h3 id="80aad287-66e1-45a4-9fe8-2e244ee26b66" class="">    </h3><p id="52b8a8d3-7bef-4537-9319-b6673f740d3a" class=""><mark class="highlight-gray">2022<br/>Carestack <br/></mark></p></div><div id="06d66d3c-728c-4177-8bd7-9f72aa155f5b" style="width:93.75%" class="column"><h3 id="8aab6d8d-068c-4e38-ab7d-f4d4b905ff05" class="">Tweak - A Design System</h3><p id="f52f3f4c-6f23-4c31-b32b-0ed3b49617ec" class=""><mark class="highlight-gray">Built design system to unify the experience &amp; design language to deliver consistent experiences across the products. Built in close collaboration with PM &amp; developer teams. </mark></p><p id="e15f7ed2-e541-4286-a162-03a4c28c21c8" class="">
+</p><p id="71f2444b-7f36-47e9-b436-ae464a99f87c" class=""><a href="https://zeroheight.com/2129b2294/p/211d59-card/b/92fb3b">View Design System</a></p><p id="81a7aa8a-587f-410f-a348-c7ef68da6a65" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="d0ec896a-0abd-4e8f-9f97-2fba15042cce"><div style="font-size:1.5em"><img class="icon" src="https://www.notion.so/icons/checkmark-line_lightgray.svg"/></div><div style="width:100%"><strong><mark class="highlight-gray">Key Activities:  </mark></strong><mark class="highlight-gray">Style Guide, Component Library, Process setup, Collaboration with dev &amp; PM teams.</mark><strong><mark class="highlight-gray"> </mark></strong></div></figure><figure id="c338ec51-9235-491a-a6c7-21814eb4d184" class="image"><a href="Projects%205da99b5144454a67be88ee0f2225495c/Untitled%202.png"><img style="width:576px" src="Projects%205da99b5144454a67be88ee0f2225495c/Untitled%202.png"/></a></figure></div></div></div><div><hr id="da16589d-619b-49a2-854e-2ad0a4f485c1"/><div id="9d6f75dd-2d7f-4f36-b16d-6f8976d8076a" class="column-list"><div id="4780a168-22c7-47d7-b6af-5d075a020a04" style="width:18.75%" class="column"><h3 id="9a6069ca-d8c6-4e82-8d97-3fc650dd452e" class="">    </h3><p id="fe963392-2bd5-450b-bbd6-69fbb2d197ff" class=""><mark class="highlight-gray">2022<br/>CareStack<br/></mark></p></div><div id="e0945fbe-d55a-4b2d-b432-affc1750d9af" style="width:93.75%" class="column"><h3 id="438f5fa9-716d-4ef2-914c-8183fe5b42c9" class="">Patient Connect</h3><p id="1a9f7d3c-1d5c-4c80-b8d4-dde3a5ce0bc0" class=""><mark class="highlight-gray">CareStack&#x27;s Patient Connect Kiosk, a tool that facilitates patient self check-in and document submission at hospitals, was facing issues of low task completion rates. To address this, the design was significantly streamlined. Non-essential features were removed, and a contextual information architecture was implemented. A clear home screen with a hierarchy of tasks was created, and the document signing process was simplified for better usability.</mark></p><p id="b8f7e079-57c7-4851-a5a2-57bdb1e25d21" class="">
+</p><p id="0c6fc58c-9d05-40c4-8dae-70f8fe29b218" class=""><a href="Projects%205da99b5144454a67be88ee0f2225495c/Patient%20Connect%201e21486d879f455fb5cb6c9d307946f8.html">View Process</a></p><p id="23a844b1-f4b7-49bb-99b2-a93cccd5a18f" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="59f8fcb2-9a02-495d-a454-126851f81f77"><div style="font-size:1.5em"><img class="icon" src="https://www.notion.so/icons/checkmark-line_lightgray.svg"/></div><div style="width:100%"><strong><mark class="highlight-gray">Key Activities:  </mark></strong><mark class="highlight-gray">Usage Data Analysis, UX Design, UI Design, Feedback &amp; Iterations.</mark></div></figure><figure id="af3b927d-2b79-4fe4-9d00-135cb3f19053" class="image"><a href="Projects%205da99b5144454a67be88ee0f2225495c/Kiosk_Hero.png"><img style="width:576px" src="Projects%205da99b5144454a67be88ee0f2225495c/Kiosk_Hero.png"/></a></figure></div></div></div><p id="e46cfd13-72e7-4f2b-8306-1b18809f2641" class="">
+</p><p id="5c44809d-296c-4294-be29-2aec1001225e" class="">
+</p><h3 id="1db91598-b5cf-43f8-88be-a5b8cebf54ec" class="">Older projects</h3><hr id="17cb2a6d-a85f-4d41-8634-264bca1ff3d4"/><div id="ebbc8789-803f-4b25-9dbf-a873ab2b1ccd" class="column-list"><div id="d92ddad3-60b0-4075-b75c-b8d4c757ec9c" style="width:50%" class="column"><p id="d8a9e3ab-164f-4480-93fe-5751d425398b" class=""><mark class="highlight-gray">2022<br/>Terrific Minds<br/></mark></p><h3 id="ad4ddbf6-9224-4f61-939d-92b0980467ea" class="">Landing Page Redesign</h3><figure id="9a0f69c0-268c-4553-9b15-bdea37565a21"><div class="source"><a href="https://www.behance.net/gallery/143522311/Terrific-Minds">https://www.behance.net/gallery/143522311/Terrific-Minds</a></div></figure></div><div id="43340986-17bf-4438-bb70-1e92093514d1" style="width:50%" class="column"><p id="334112a1-bbc9-441a-a5f7-768606d0bc6f" class=""><mark class="highlight-gray">2022<br/>Terrific Minds<br/></mark></p><h3 id="fd88e57d-97f9-4ac4-b89b-77bc5fde2c53" class="">My Fan Park - New Concept</h3><figure id="f3d82bb7-d40d-4d23-b572-312202178eca"><div class="source"><a href="https://www.behance.net/gallery/143043621/Baton">https://www.behance.net/gallery/143043621/Baton</a></div></figure></div></div><hr id="a2bc0947-c7e5-46bd-b6d0-2204a84de42f"/><div id="55fc5c72-399c-4b19-8c4a-d84ee0bf44eb" class="column-list"><div id="6605e25d-e843-4538-a3ce-b90cb0638fd5" style="width:50%" class="column"><p id="4df38f4d-d1e6-40c5-9a9c-ceefe21c0a74" class=""><mark class="highlight-gray">2022<br/>Terrific Minds<br/></mark></p><h3 id="6d9d1ded-4e70-4bbb-b693-ae120bed5898" class="">PDP Redesign for Ecommerce site</h3><figure id="5e059a85-edf2-4ef5-b77c-821e5e36a979"><div class="source"><a href="https://www.behance.net/gallery/144819207/Amouage-Product-Page">https://www.behance.net/gallery/144819207/Amouage-Product-Page</a></div></figure></div><div id="0766465b-a9f9-449e-a660-f652ed09d027" style="width:50.000000000000014%" class="column"><p id="48786e97-2955-4b84-a6a9-5fa68eabd770" class=""><mark class="highlight-gray">2022<br/>App Concept<br/></mark></p><h3 id="2f7cf146-10a7-4e9a-94e5-d05b3f7fb2e6" class="">Kisan Kart - Farmers to consumer</h3><figure id="52721267-9b3c-4672-a539-8840a5736c3a"><div class="source"><a href="https://www.behance.net/gallery/118380491/Kisan-Kart">https://www.behance.net/gallery/118380491/Kisan-Kart</a></div></figure></div></div><hr id="e5c05893-70a3-46fb-93cc-0214e757ab32"/><div id="3dabcaee-e211-471c-a674-e9da25c88160" class="column-list"><div id="a3f748d7-e5db-4a36-9208-f44bc0ec4aad" style="width:50%" class="column"><p id="958984f7-0ff2-4b21-855d-33af75bc9221" class=""><mark class="highlight-gray">2021<br/>IISc Bengaluru<br/></mark></p><h3 id="00387352-3575-4201-b2d7-eed1bbafd04a" class="">Vortex - Kinetic Light Sculpture</h3><figure id="e2ff1ebd-5af9-462c-b01a-1f7c9433948f"><div class="source"><a href="https://www.behance.net/gallery/145858451/Vortex">https://www.behance.net/gallery/145858451/Vortex</a></div></figure></div><div id="feabfccc-0f66-4b10-8378-6679c9d3cf5d" style="width:50%" class="column"><p id="5d4c553c-e727-4fec-8d09-e0a1f73a645d" class=""><mark class="highlight-gray">2021<br/>IISc Bengaluru<br/></mark></p><h3 id="495c3d71-a22d-43d4-9cc0-893204371d44" class="">Rayspire - Air Quality Monitor</h3><figure id="6dd28cba-5bf1-46bb-ae63-5d6e127bf2ee"><div class="source"><a href="https://www.behance.net/gallery/105884251/Smart-Home-Pollution-Monitor">https://www.behance.net/gallery/105884251/Smart-Home-Pollution-Monitor</a></div></figure></div></div><p id="545f3b2b-ddfe-427a-8f5a-8416c6e7c947" class="">
+</p><p id="600f0a16-f72e-4903-aa20-d2b170853389" class="">
+</p><ul id="ee691168-9e78-4e61-93e6-53b23fd24eaf" class="toggle"><li><details open=""><summary>Projects</summary><figure id="1e21486d-879f-455f-b5cb-6c9d307946f8" class="link-to-page"><a href="Projects%205da99b5144454a67be88ee0f2225495c/Patient%20Connect%201e21486d879f455fb5cb6c9d307946f8.html">Patient Connect</a></figure></details></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

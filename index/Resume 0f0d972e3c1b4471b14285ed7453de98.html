@@ -1,0 +1,692 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Resume</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-default { background-color: rgba(84, 72, 49, 0.08); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0f0d972e-3c1b-4471-b142-85ed7453de98" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="Resume%200f0d972e3c1b4471b14285ed7453de98/Shiva_Ambati.png"/></div><h1 class="page-title">Resume</h1><p class="page-description"></p></header><div class="page-body"><h1 id="10ba7593-c9cc-4acc-9253-2ef97c2a6443" class="">Shiva Ambati</h1><p id="02725b33-67fc-4bef-ada3-8409315d7234" class="">
+</p><p id="72b479a3-2f09-43f2-80f2-6451ee391179" class="">Download resume 👇</p><figure id="d9397f2f-9a87-443f-a163-8e78f2527695"><div class="block-color-blue source"><a href="Resume%200f0d972e3c1b4471b14285ed7453de98/Shiva_Kumar_resume_0424.pdf">Shiva Kumar resume.pdf</a></div></figure><p id="c1f726b0-53e6-485a-b422-082cfa7472d4" class="">
+</p><p id="7a90ebad-3810-4701-9868-dd6d3939850a" class="">I’m a designer with expertise in crafting delightful experiences &amp;  pixel perfect designs through iterative process. A simplifier  through decoding the “why” of the problem. A researcher capable of decoding user needs &amp; behavior.  A product owner who  analyzes data &amp; user insights to build a strategic product roadmap &amp; align stakeholders. A lay-user trying to make products a simpler to use. A first principle thinker &amp; an obsessive learner.</p><p id="cd1c381e-8b29-4724-a722-631a6f468953" class="">
+</p><hr id="417cf696-9b01-4025-a6ae-6d1014d414aa"/><h1 id="a4dd6386-bbe8-4666-858e-ee72ffb6dd80" class="">WORK EXPERIENCE</h1><div id="fe1a6ed1-2a7f-46b3-b883-68a0612a939b" class="column-list"><div id="676f3049-2a06-4b62-973b-3f2a6103a978" style="width:31.25%" class="column"><h2 id="ad44712c-fa3d-4326-af91-acf5e329c5be" class="">Product Planning</h2><h3 id="cc2804bc-5c4a-4dc3-bc66-8d0d79330c49" class="">Samsung India (RHQ)</h3><p id="7cb669e9-b858-4aae-8bd8-68bdcf11bdd0" class="">Sep’22 → Now, Gurgaon</p></div><div id="256b14bf-4da1-4cdc-bd26-bbe1408084de" style="width:68.75%" class="column"><figure id="e419dba3-207b-44ef-a287-02bc7d99911b" class="image" style="text-align:left"><a href="Resume%200f0d972e3c1b4471b14285ed7453de98/Frame_63.svg"><img style="width:240px" src="Resume%200f0d972e3c1b4471b14285ed7453de98/Frame_63.svg"/></a></figure></div></div><ul id="65c3f4f4-1b20-44a6-9621-144c93ed880b" class="bulleted-list"><li style="list-style-type:disc">Created strategic user centric experiences in Native Search, Photo Editor, Camera Modes, Quick Share (file transfer), Document Scanner. </li></ul><ul id="d36b1af3-f57b-4a9a-ad48-9b893329e879" class="bulleted-list"><li style="list-style-type:disc">Won GoSmart Award 2023 (team) for quick research and  solutioning</li></ul><ul id="10d40fa9-d339-4e09-bdc1-0c712ec60de1" class="bulleted-list"><li style="list-style-type:disc">Extracting insights from  the smartphone usage metrics, churn &amp; sales data</li></ul><ul id="30e37fe2-b346-44a6-a552-35ddd87e935a" class="bulleted-list"><li style="list-style-type:disc">Qual &amp; quant research to test the hypothesis, concepts, identify needs &amp; pain points, create personas &amp; prioritize actionable areas</li></ul><ul id="eb5bd046-0368-4458-90dc-6a711d913328" class="bulleted-list"><li style="list-style-type:disc">Storytelling with data &amp; consumer insights for stakeholder alignment</li></ul><p id="56c9168d-808d-4500-bf22-9546aabfd58c" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="0e6bf8e2-af40-433e-8e1b-7f46328f7b11"><div style="font-size:1.5em"><span class="icon">📈</span></div><div style="width:100%">Skill upgrade: Qualitative &amp; quantitative research, decoding data, data visualization, storytelling, stakeholder alignment.</div></figure><p id="972bb992-8542-489d-963b-606fa7fe2b47" class="">
+</p><div id="04607fe1-ab43-468e-8b15-33de0c58b1dd" class="column-list"><div id="87e6c2d7-ad45-4479-a701-e5eb1557907a" style="width:31.25%" class="column"><h2 id="61e90973-0d2b-4fd6-8c9d-fcbb579355c7" class="">UX Designer</h2><h3 id="2a9e0e72-7b12-4cf9-968d-f99121595f77" class="">Carestack</h3><p id="86eec19c-7d69-4ecf-ac19-c10f7fd12d00" class="">Jan ‘22 → Aug ‘22,  Thiruvananthapuram </p></div><div id="5af6ef05-1134-4cb7-b9c9-19841fdc3958" style="width:68.75%" class="column"><figure id="40aa8e8a-b774-4ece-9887-837bfbcd883b" class="image"><a href="Resume%200f0d972e3c1b4471b14285ed7453de98/Frame_63_(1).svg"><img style="width:240px" src="Resume%200f0d972e3c1b4471b14285ed7453de98/Frame_63_(1).svg"/></a></figure></div></div><ul id="fc1a7771-82f5-40f6-97e6-82c5127abc5c" class="bulleted-list"><li style="list-style-type:disc">Redesigned a patient module to increase task completion rate by streamlining task flow and optimizing information architecture</li></ul><ul id="f901c748-4b95-465f-a59b-4a40a1c632dc" class="bulleted-list"><li style="list-style-type:disc">Built a unified design system to standardize elements and guide visual direction, collaborating closely with UI design, development, and project management teams</li></ul><ul id="a6b1f78a-f819-4c46-82aa-1c372f05abad" class="bulleted-list"><li style="list-style-type:disc">Designed enhancements &amp; new features in multiple modules.</li></ul><p id="1d0b151d-9043-429b-afe1-4ff3e8d6237b" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="c94c7bc9-5c14-48ca-9243-bde06e826c98"><div style="font-size:1.5em"><span class="icon">🥷🏽</span></div><div style="width:100%">Skill upgrade: User flows, information architecture, UI tokenization, Mastery of autolayout, code friendly designs, accessibility.</div></figure><div id="c4ac9ac3-a827-4444-be70-2517357fa24e" class="column-list"><div id="637b6992-2fc7-4fef-a423-fe2948d9e9ab" style="width:31.25%" class="column"><h2 id="5803bee3-ab62-465c-a109-17aa319cd3a8" class="">UX Designer</h2><h3 id="b079dc59-e5a9-4032-9933-205321f15060" class="">Terrific Minds</h3><p id="cb518923-2078-4176-b91e-1abf4426028a" class="">Jul ‘21 → Dec ‘21,  Thiruvananthapuram </p></div><div id="d2ec593f-b8ae-47de-8bd4-5333afbb88ff" style="width:68.75%" class="column"><figure id="32f8ce11-ed8c-49bd-b6a9-c427d55d101a" class="image"><a href="Resume%200f0d972e3c1b4471b14285ed7453de98/Frame_63_(2).svg"><img style="width:240px" src="Resume%200f0d972e3c1b4471b14285ed7453de98/Frame_63_(2).svg"/></a></figure></div></div><ul id="827ea4c5-92f4-4405-bb11-fd2b8e60a9e2" class="bulleted-list"><li style="list-style-type:disc">Designed interfaces for products in both B2B &amp; B2C across various domains. Healthcare, ecommerce, social media, operations etc</li></ul><ul id="c13cbd63-c27c-4ded-8427-9ae1a76c40a5" class="bulleted-list"><li style="list-style-type:disc">Understanding user, client needs &amp; converting into pixel perfect designs to achieve business goals.</li></ul><p id="56d3f0f0-e41f-4631-a47a-167f7e6469de" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="10aec12a-22fd-8197-adf9-eca01fada842"><div style="font-size:1.5em"><span class="icon">🛠️</span></div><div style="width:100%"><p id="06e32b0f-8815-4b81-92d4-dd0df2eb611a" class="">Skill upgrade: UI Design, responsive design, interaction design, feedback &amp; iterative design, file etiquette &amp; client presentations, Figma, Adobe XD &amp; Notion.</p></div></figure><p id="2be7952a-e2fe-451d-b2eb-acfb4ba2307b" class="">
+</p><hr id="aa1072cb-4b70-4e38-af5c-7fc76f60e041"/><p id="f8741d83-e90e-49a2-a294-c721fad06d03" class="">
+</p><h1 id="a98258d7-455b-481f-a993-c834a5377f8f" class="">EDUCATION</h1><h3 id="788eb68b-4917-4b64-b271-7295e193e82b" class="">Master of Design</h3><p id="27c5f24f-8ff7-42b4-9f28-6a4703d5b21e" class="">Product Design, IISc, Bengaluru, 2019 → 2021</p><p id="02f6f8df-20e5-40f8-a46f-fffd695fbd59" class="">Design thinking, HCI, visual design, product development, human factors &amp; ergonomics, fundamentals of business strategies etc.</p><p id="a8dc835b-4b81-493d-83c7-cb9ebb41a81d" class="">
+</p><h3 id="0c790064-545c-4169-a691-52df02af659a" class="">Bachelor of Technology</h3><p id="2fcba66a-2bf6-42f3-a2d3-7198e639e462" class="">Mech. Engineering, IIITDM , Jabalpur, 2014 → 2018</p><p id="e6b37615-ae37-4a99-8650-7e3e5b1e48c9" class="">Game theory, design thinking, CAD, reverse engineering, mechanisms, arts &amp; aesthetics, Indian culture and philosophy etc       </p><p id="f6faa1f0-5b40-486f-a386-b3abfe4ec72e" class="">
+</p><hr id="c2581837-a471-4ac7-8c1a-e8ec50d54d1c"/><h1 id="5eb27227-8df7-4dc4-b597-87ea1295a68f" class="">ABOUT ME: </h1><p id="6a8e811c-91df-4ce2-9553-9b1e876d150b" class=""><strong>Likes</strong> → Workouts, Badminton, Swimming , Bad puns, Anime </p><p id="146c84ad-55d1-4338-ab5c-01a449a2e6f9" class=""><strong>Learning</strong> → Motion design, After effects, Rock climbing.</p><p id="93eeda32-5700-4f73-9d14-8b6d70a36dde" class=""><strong>Shows I love</strong> →Attack on titan, The Office, Brooklyn 99, Rick &amp; Morty</p><p id="03265321-c65e-4db2-b235-5950a8ebfcb5" class=""><strong>Fluent in</strong> → English, Hindi, Telugu &amp; Memes</p><p id="c49267b2-f349-40c1-9acf-83534a802580" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
