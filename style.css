@@ -1,84 +1,85 @@
-/* style.css */
-
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap');
-
-/* Light mode default styles */
-:root {
-  --bg-color: #ffffff;
-  --text-color: #111111;
-  --link-color: #0070f3;
-  --nav-bg: #f9f9f9;
-}
-
-/* Dark mode overrides */
-body.dark-mode {
-  --bg-color: #111111;
-  --text-color: #eeeeee;
-  --link-color: #66ccff;
-  --nav-bg: #1a1a1a;
-}
-
+/* === Global Styles === */
 body {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  background-color: var(--bg-color);
-  color: var(--text-color);
   margin: 0;
   padding: 0;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: var(--font);
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
 }
 
-h1, h2, h3 {
-  font-weight: 600;
+img {
+  max-width: 100%;
+  height: auto;
 }
 
-a {
-  color: var(--link-color);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* Custom Navigation Header */
-nav.custom-header {
-  background: var(--nav-bg);
-  border-bottom: 1px solid #ddd;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
-
-nav.custom-header a {
-  margin: 0 1rem;
-  font-weight: 600;
-}
-
-/* Toggle Button */
-.theme-toggle-btn {
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-body.dark-mode .theme-toggle-btn {
-  background: #fff;
-  color: #000;
-}
-
-/* Section Styling */
-section {
-  padding: 2rem;
-  max-width: 800px;
+.page {
+  max-width: 900px;
   margin: 0 auto;
+  padding: 1em;
+}
+
+/* === Toggle Button === */
+#modeToggle {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  z-index: 999;
+  padding: 0.5em 1em;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* === Mode 1: Brutalist / Analog Tech / Rams === */
+body.mode1 {
+  --bg: #fff;
+  --text: #111;
+  --accent: #000;
+  --font: "Helvetica Neue", Arial, sans-serif;
+}
+
+body.mode1 h1,
+body.mode1 h2,
+body.mode1 h3 {
+  font-weight: 800;
+  border-bottom: 2px solid #000;
+  display: inline-block;
+}
+
+/* === Mode 2: Colorful Soft Systems === */
+body.mode2 {
+  --bg: #fdf6f9;
+  --text: #333;
+  --accent: #e57373;
+  --font: "Comic Sans MS", cursive, sans-serif;
+}
+
+body.mode2 h1,
+body.mode2 h2,
+body.mode2 h3 {
+  color: #e57373;
+  border-bottom: 2px dashed #f8bbd0;
+  display: inline-block;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .page {
+    padding: 1em;
+  }
+
+  h1, h2, h3 {
+    font-size: 1.3em;
+  }
+
+  #modeToggle {
+    font-size: 0.9rem;
+    padding: 0.4em 0.8em;
+  }
 }
