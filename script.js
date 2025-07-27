@@ -1,474 +1,387 @@
+// Global state
+let currentTheme = 'brutalist';
+let isMobileMenuOpen = false;
+
+// DOM elements
+const body = document.body;
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileMenuButton = document.querySelector('.mobile-menu-button');
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    initializeTheme();
+    initializeEventListeners();
+    initializeAnimations();
+});
+
 // Theme Management
-class ThemeManager {
-    constructor() {
-        this.currentMode = 'brutalist';
-        this.body = document.body;
-        this.themeToggle = document.getElementById('theme-toggle');
-        this.logoImg = document.getElementById('logo-img');
-        this.mobileMenuLogoImg = document.getElementById('mobile-menu-logo-img');
-        
-        // Logo sources
-        this.brutalLogo = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA4MCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjY0IiBmaWxsPSJibGFjayIvPgo8dGV4dCB4PSI0MCIgeT0iMzYiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iV29yayBTYW5zIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iOTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5zYS48L3RleHQ+Cjwvc3ZnPgo=';
-        this.softLogo = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA4MCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjY0IiBmaWxsPSJibGFjayIvPgo8dGV4dCB4PSI0MCIgeT0iMzYiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSI2MDAiIGZvbnQtc3R5bGU9ImlkYWxpYyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+c2EuPC90ZXh0Pgo8L3N2Zz4K';
-        
-        this.init();
+function initializeTheme() {
+    // Check for saved theme preference or default to 'brutalist'
+    const savedTheme = localStorage.getItem('theme') || 'brutalist';
+    setTheme(savedTheme);
+}
+
+function toggleTheme() {
+    const newTheme = currentTheme === 'brutalist' ? 'soft' : 'brutalist';
+    setTheme(newTheme);
+}
+
+function setTheme(theme) {
+    currentTheme = theme;
+    
+    // Remove existing theme classes
+    body.classList.remove('brutalist', 'soft');
+    
+    // Add new theme class
+    body.classList.add(theme);
+    
+    // Save theme preference
+    localStorage.setItem('theme', theme);
+    
+    // Update theme toggle button aria-label
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+        themeToggle.setAttribute('aria-label', 
+            `Switch to ${theme === 'brutalist' ? 'soft' : 'brutalist'} theme`
+        );
     }
     
-    init() {
-        // Set initial theme
-        this.updateTheme();
-        
-        // Add event listeners
-        this.themeToggle.addEventListener('click', () => this.toggleTheme());
-        
-        // Add keyboard shortcut (Ctrl/Cmd + Shift + T)
-        document.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'T') {
-                e.preventDefault();
-                this.toggleTheme();
-            }
-        });
-    }
-    
-    toggleTheme() {
-        this.currentMode = this.currentMode === 'brutalist' ? 'soft' : 'brutalist';
-        this.updateTheme();
-    }
-    
-    updateTheme() {
-        // Update body class
-        this.body.className = `${this.currentMode}-mode`;
-        
-        // Update logos
-        const logoSrc = this.currentMode === 'brutalist' ? this.brutalLogo : this.softLogo;
-        this.logoImg.src = logoSrc;
-        this.mobileMenuLogoImg.src = logoSrc;
-        
-        // Update theme toggle icon
-        this.updateThemeToggleIcon();
-        
-        // Update text content based on mode
-        this.updateTextContent();
-    }
-    
-    updateThemeToggleIcon() {
-        const icon = this.themeToggle.querySelector('.theme-toggle-icon');
-        
-        if (this.currentMode === 'brutalist') {
-            // Circle icon for brutalist mode
-            icon.innerHTML = '<circle cx="12" cy="12" r="10"></circle>';
-        } else {
-            // Square icon for soft mode
-            icon.innerHTML = '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>';
-        }
-    }
-    
-    updateTextContent() {
-        // Update navigation buttons
-        const navButtons = document.querySelectorAll('.nav-button');
-        const navTexts = ['Work', 'About', 'Playground', 'Contact'];
-        
-        navButtons.forEach((button, index) => {
-            if (this.currentMode === 'brutalist') {
-                button.textContent = navTexts[index].toUpperCase();
-            } else {
-                button.textContent = navTexts[index];
-            }
-        });
-        
-        // Update mobile menu buttons
-        const mobileMenuButtons = document.querySelectorAll('.mobile-menu-button');
-        const mobileNavTexts = ['Work', 'About', 'Playground'];
-        
-        mobileMenuButtons.forEach((button, index) => {
-            if (this.currentMode === 'brutalist') {
-                button.textContent = mobileNavTexts[index].toUpperCase();
-            } else {
-                button.textContent = mobileNavTexts[index];
-            }
-        });
-        
-        // Update hero content
-        this.updateHeroContent();
-        
-        // Update about cards
-        this.updateAboutCards();
-        
-        // Update project cards
-        this.updateProjectCards();
-        
-        // Update footer
-        this.updateFooter();
-        
-        // Update mobile menu social title
-        this.updateMobileMenuSocial();
-    }
-    
-    updateHeroContent() {
-        const heroTitle = document.querySelector('.hero-title');
-        const heroSubtitle = document.querySelector('.hero-subtitle');
-        const heroDescriptionAccent = document.querySelector('.hero-description-accent');
-        const heroDescription = document.querySelector('.hero-description p');
-        
-        if (this.currentMode === 'brutalist') {
-            heroTitle.textContent = 'SHIVA AMBATI';
-            heroSubtitle.textContent = 'DESIGNING GAMES | EX-SAMSUNG | M.DES @ IISC BENGALURU';
-            heroDescriptionAccent.textContent = 'PRODUCT DESIGN X PSYCHOLOGY X TECHNOLOGY';
-            heroDescription.textContent = 'I\'M PASSIONATE ABOUT PRODUCTS & HOW THEY IMPACT LIVES. ON A MISSION TO MERGE TECH KNOW HOW WITH HUMAN PSYCHOLOGY FOR IMPACTFUL USER EXPERIENCES. OBSESSED WITH DECODING THE "WHY" OF USER BEHAVIOUR, CONNECTING DOTS & SIMPLIFYING COMPLEX PROBLEMS.';
-        } else {
-            heroTitle.textContent = 'Hi, I\'m Shiva Ambati';
-            heroSubtitle.textContent = 'Designing Games | Ex-Samsung | M.Des @ IISc Bengaluru';
-            heroDescriptionAccent.textContent = 'Product Design X Psychology X Technology';
-            heroDescription.textContent = 'I\'m passionate about products & how they impact lives. On a mission to merge tech know how with human psychology for impactful user experiences. Obsessed with decoding the "why" of user behaviour, connecting dots & simplifying complex problems.';
-        }
-    }
-    
-    updateAboutCards() {
+    // Trigger animations for theme-specific elements
+    animateThemeTransition();
+}
+
+function animateThemeTransition() {
+    // Add animation classes to cards that need staggered animation in soft mode
+    if (currentTheme === 'soft') {
         const aboutCards = document.querySelectorAll('.about-card');
-        const cardData = [
-            {
-                title: 'A First Principle Thinker',
-                description: 'Breaking down problems, process & logic to their core to create unique & robust solutions with the fundamental blocks.'
-            },
-            {
-                title: 'Going beyond obvious',
-                description: 'Uncovering the hidden insights beyond the obvious data, connecting dots & finding patterns.'
-            },
-            {
-                title: 'Outcome over Output',
-                description: 'Put efforts into the tasks & activities that clearly impacts product vision. Prioritize outcome & impact over output & process.'
-            },
-            {
-                title: 'Interdisciplinary & Versatile',
-                description: 'Value multiplier through unique & meaningful contribution across the product development cycle.'
-            },
-            {
-                title: 'Critically Objective & Open Minded',
-                description: 'Rational & evidence driven decisions to eliminate internal & external bias.'
-            }
-        ];
+        const projectCards = document.querySelectorAll('.project-card');
         
         aboutCards.forEach((card, index) => {
-            const title = card.querySelector('.about-card-title');
-            const description = card.querySelector('.about-card-description');
-            
-            if (this.currentMode === 'brutalist') {
-                title.textContent = cardData[index].title.toUpperCase();
-                description.textContent = cardData[index].description.toUpperCase();
-            } else {
-                title.textContent = cardData[index].title;
-                description.textContent = cardData[index].description;
-            }
+            card.style.transitionDelay = `${index * 100}ms`;
         });
-    }
-    
-    updateProjectCards() {
-        const projectCards = document.querySelectorAll('.project-card');
-        const projectData = [
-            {
-                company: 'Samsung',
-                title: 'Making Photo Edits Effortless',
-                problem: 'Users capture a lot of photos but only few end up share worthy. Often due to lack of editing skill, knowledge & time',
-                approach: 'Conceptualised an AI-suggested nudge based edit experience that surface at the right moment minimising friction, maximising delight.',
-                linkText: 'View case study'
-            },
-            {
-                company: 'Samsung',
-                title: 'Reimagining Search',
-                problem: 'Users often unaware of some advanced native features end up installing third party apps.',
-                approach: 'Search needed to understand user intent, not just keywords. It had to feel intuitive yet powerful. Enhanced search with synonyms, intent mapping, and contextual quick actions',
-                linkText: 'View prototype'
-            }
-        ];
         
         projectCards.forEach((card, index) => {
-            const company = card.querySelector('.project-company');
-            const title = card.querySelector('.project-title');
-            const problemTitle = card.querySelector('.project-section-title');
-            const problemContent = card.querySelector('.project-section-content');
-            const approachTitle = card.querySelectorAll('.project-section-title')[1];
-            const approachContent = card.querySelectorAll('.project-section-content')[1];
-            const linkBtn = card.querySelector('.project-link-btn');
-            
-            if (this.currentMode === 'brutalist') {
-                company.textContent = projectData[index].company.toUpperCase();
-                title.textContent = projectData[index].title.toUpperCase();
-                problemTitle.textContent = 'PROBLEM:';
-                problemContent.textContent = projectData[index].problem.toUpperCase();
-                approachTitle.textContent = 'APPROACH:';
-                approachContent.textContent = projectData[index].approach.toUpperCase();
-                linkBtn.textContent = projectData[index].linkText.toUpperCase() + ' →';
-            } else {
-                company.textContent = projectData[index].company;
-                title.textContent = projectData[index].title;
-                problemTitle.textContent = 'Problem';
-                problemContent.textContent = projectData[index].problem;
-                approachTitle.textContent = 'Approach';
-                approachContent.textContent = projectData[index].approach;
-                linkBtn.textContent = projectData[index].linkText + ' →';
-            }
+            card.style.transitionDelay = `${index * 200}ms`;
         });
-    }
-    
-    updateFooter() {
-        const footerBrandText = document.querySelector('.footer-brand-text');
-        const footerLinks = document.querySelectorAll('.footer-link');
-        const footerTexts = ['LinkedIn', 'Mail', 'Medium'];
-        
-        if (this.currentMode === 'brutalist') {
-            footerBrandText.textContent = 'SHIVA AMBATI ⏤ 2024';
-            footerLinks.forEach((link, index) => {
-                if (index < footerTexts.length) {
-                    // Update text content while preserving SVG for Medium link
-                    if (index === 2) {
-                        const textNode = Array.from(link.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
-                        if (textNode) {
-                            textNode.textContent = footerTexts[index].toUpperCase();
-                        } else {
-                            link.appendChild(document.createTextNode(footerTexts[index].toUpperCase()));
-                        }
-                    } else {
-                        link.textContent = footerTexts[index].toUpperCase();
-                    }
-                }
-            });
-        } else {
-            footerBrandText.textContent = 'Shiva Ambati ⏤ 2024';
-            footerLinks.forEach((link, index) => {
-                if (index < footerTexts.length) {
-                    // Update text content while preserving SVG for Medium link
-                    if (index === 2) {
-                        const textNode = Array.from(link.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
-                        if (textNode) {
-                            textNode.textContent = footerTexts[index];
-                        } else {
-                            link.appendChild(document.createTextNode(footerTexts[index]));
-                        }
-                    } else {
-                        link.textContent = footerTexts[index];
-                    }
-                }
-            });
-        }
-    }
-    
-    updateMobileMenuSocial() {
-        const mobileMenuSocialTitle = document.querySelector('.mobile-menu-social-title');
-        
-        if (this.currentMode === 'brutalist') {
-            mobileMenuSocialTitle.textContent = 'CONNECT WITH ME';
-        } else {
-            mobileMenuSocialTitle.textContent = 'Connect with me';
-        }
+    } else {
+        // Reset delays for brutalist mode
+        const allCards = document.querySelectorAll('.about-card, .project-card');
+        allCards.forEach(card => {
+            card.style.transitionDelay = '0ms';
+        });
     }
 }
 
-// Navigation Manager
-class NavigationManager {
-    constructor() {
-        this.init();
+// Mobile Menu Management
+function toggleMobileMenu() {
+    isMobileMenuOpen = !isMobileMenuOpen;
+    
+    if (isMobileMenuOpen) {
+        openMobileMenu();
+    } else {
+        closeMobileMenu();
+    }
+}
+
+function openMobileMenu() {
+    mobileMenu.classList.add('active');
+    body.classList.add('mobile-menu-open');
+    
+    // Prevent body scroll
+    body.style.overflow = 'hidden';
+    
+    // Update mobile menu button aria-label
+    if (mobileMenuButton) {
+        mobileMenuButton.setAttribute('aria-label', 'Close menu');
     }
     
-    init() {
-        // Add click listeners to navigation buttons
-        const navButtons = document.querySelectorAll('.nav-button');
-        const logoButton = document.getElementById('logo-button');
-        
-        navButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                const section = e.target.dataset.section;
-                this.scrollToSection(section);
-            });
-        });
-        
-        // Logo button scrolls to top
-        logoButton.addEventListener('click', () => {
-            window.scrollTo({ 
-                top: 0, 
-                behavior: 'smooth' 
-            });
-        });
+    // Add staggered animation to mobile nav buttons
+    const navButtons = document.querySelectorAll('.mobile-nav-button');
+    navButtons.forEach((button, index) => {
+        button.style.transitionDelay = `${index * 100}ms`;
+        button.classList.add('fade-in');
+    });
+}
+
+function closeMobileMenu() {
+    mobileMenu.classList.remove('active');
+    body.classList.remove('mobile-menu-open');
+    
+    // Restore body scroll
+    body.style.overflow = '';
+    
+    // Update mobile menu button aria-label
+    if (mobileMenuButton) {
+        mobileMenuButton.setAttribute('aria-label', 'Open menu');
     }
     
-    scrollToSection(sectionId) {
-        let element;
-        
-        if (sectionId === 'hero') {
-            // For contact, scroll to hero section
-            element = document.querySelector('.hero');
-        } else {
-            element = document.getElementById(sectionId);
-        }
-        
-        if (element) {
-            element.scrollIntoView({ 
+    // Reset animation classes
+    const navButtons = document.querySelectorAll('.mobile-nav-button');
+    navButtons.forEach(button => {
+        button.style.transitionDelay = '0ms';
+        button.classList.remove('fade-in');
+    });
+}
+
+// Navigation and Scrolling
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function scrollToSection(sectionId) {
+    // Close mobile menu if open
+    if (isMobileMenuOpen) {
+        closeMobileMenu();
+        isMobileMenuOpen = false;
+    }
+    
+    // Handle special case for hero section contact
+    if (sectionId === 'hero') {
+        const heroElement = document.querySelector('.hero');
+        if (heroElement) {
+            heroElement.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
         }
+        return;
+    }
+    
+    // Handle regular sections
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
     }
 }
 
-// Mobile Menu Manager
-class MobileMenuManager {
-    constructor() {
-        this.mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-        this.mobileMenuButton = document.getElementById('mobile-menu-button');
-        this.mobileMenuClose = document.getElementById('mobile-menu-close');
-        this.mobileMenuButtons = document.querySelectorAll('.mobile-menu-button');
-        this.body = document.body;
-        
-        this.isOpen = false;
-        this.init();
+// Event Listeners
+function initializeEventListeners() {
+    // Keyboard shortcuts
+    document.addEventListener('keydown', handleKeyboardShortcuts);
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', handleOutsideClick);
+    
+    // Handle escape key for mobile menu
+    document.addEventListener('keydown', handleEscapeKey);
+    
+    // Scroll-based animations
+    window.addEventListener('scroll', handleScroll);
+    
+    // Resize handler for responsive adjustments
+    window.addEventListener('resize', handleResize);
+}
+
+function handleKeyboardShortcuts(event) {
+    // Ctrl+Shift+T (or Cmd+Shift+T on Mac) to toggle theme
+    if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'T') {
+        event.preventDefault();
+        toggleTheme();
     }
     
-    init() {
-        // Mobile menu toggle
-        this.mobileMenuButton.addEventListener('click', () => {
-            this.toggleMobileMenu();
-        });
-        
-        // Close mobile menu
-        this.mobileMenuClose.addEventListener('click', () => {
-            this.closeMobileMenu();
-        });
-        
-        // Close mobile menu when clicking outside
-        this.mobileMenuOverlay.addEventListener('click', (e) => {
-            if (e.target === this.mobileMenuOverlay) {
-                this.closeMobileMenu();
-            }
-        });
-        
-        // Mobile menu navigation
-        this.mobileMenuButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                const section = e.target.dataset.section;
-                this.scrollToSection(section);
-                this.closeMobileMenu();
-            });
-        });
-        
-        // Close mobile menu on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isOpen) {
-                this.closeMobileMenu();
-            }
-        });
-    }
-    
-    toggleMobileMenu() {
-        if (this.isOpen) {
-            this.closeMobileMenu();
-        } else {
-            this.openMobileMenu();
-        }
-    }
-    
-    openMobileMenu() {
-        this.isOpen = true;
-        this.mobileMenuOverlay.classList.add('active');
-        this.mobileMenuButton.classList.add('mobile-menu-open');
-        this.body.style.overflow = 'hidden';
-    }
-    
-    closeMobileMenu() {
-        this.isOpen = false;
-        this.mobileMenuOverlay.classList.remove('active');
-        this.mobileMenuButton.classList.remove('mobile-menu-open');
-        this.body.style.overflow = '';
-    }
-    
-    scrollToSection(sectionId) {
-        let element;
-        
-        if (sectionId === 'hero') {
-            element = document.querySelector('.hero');
-        } else {
-            element = document.getElementById(sectionId);
-        }
-        
-        if (element) {
-            element.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+    // Escape key to close mobile menu
+    if (event.key === 'Escape' && isMobileMenuOpen) {
+        event.preventDefault();
+        toggleMobileMenu();
     }
 }
 
-// Animation Manager
-class AnimationManager {
-    constructor() {
-        this.init();
+function handleOutsideClick(event) {
+    // Close mobile menu if clicking outside of it
+    if (isMobileMenuOpen && !mobileMenu.contains(event.target) && 
+        !event.target.closest('.mobile-menu-button')) {
+        toggleMobileMenu();
+    }
+}
+
+function handleEscapeKey(event) {
+    if (event.key === 'Escape' && isMobileMenuOpen) {
+        toggleMobileMenu();
+    }
+}
+
+function handleScroll() {
+    // Add scroll-based animations or effects here if needed
+    const scrollY = window.scrollY;
+    
+    // Example: Add subtle parallax effect to background elements in soft mode
+    if (currentTheme === 'soft') {
+        const heroBlurs = document.querySelectorAll('.hero-blur-1, .hero-blur-2');
+        heroBlurs.forEach(blur => {
+            const speed = 0.5;
+            blur.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+    }
+}
+
+function handleResize() {
+    // Close mobile menu on resize to desktop view
+    if (window.innerWidth >= 768 && isMobileMenuOpen) {
+        closeMobileMenu();
+        isMobileMenuOpen = false;
     }
     
-    init() {
-        // Add intersection observer for scroll animations
-        this.setupScrollAnimations();
-    }
+    // Update theme toggle position calculation
+    updateThemeTogglePosition();
+}
+
+function updateThemeTogglePosition() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (!themeToggle) return;
     
-    setupScrollAnimations() {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+    // Reset any inline styles that might interfere
+    if (window.innerWidth >= 768) {
+        themeToggle.style.transform = 'translateX(-50%)';
+    } else {
+        themeToggle.style.transform = '';
+    }
+}
+
+// Animation Initialization
+function initializeAnimations() {
+    // Set up intersection observer for scroll-triggered animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('slide-up');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements that should animate on scroll
+    const animateElements = document.querySelectorAll('.about-card, .project-card');
+    animateElements.forEach(element => {
+        observer.observe(element);
+    });
+}
+
+// Utility Functions
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
         };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-                }
-            });
-        }, observerOptions);
-        
-        // Observe sections for animation
-        const sections = document.querySelectorAll('section');
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-    }
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize all managers
-    const themeManager = new ThemeManager();
-    const navigationManager = new NavigationManager();
-    const mobileMenuManager = new MobileMenuManager();
-    const animationManager = new AnimationManager();
-    
-    // Add smooth scroll behavior
-    document.documentElement.style.scrollBehavior = 'smooth';
-    
-    // Prevent body scroll when mobile menu is open
-    document.addEventListener('touchmove', (e) => {
-        if (mobileMenuManager.isOpen) {
-            e.preventDefault();
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
         }
-    }, { passive: false });
+    };
+}
+
+// Performance optimized scroll handler
+const optimizedScrollHandler = throttle(handleScroll, 16); // ~60fps
+window.addEventListener('scroll', optimizedScrollHandler);
+
+// Performance optimized resize handler
+const optimizedResizeHandler = debounce(handleResize, 250);
+window.addEventListener('resize', optimizedResizeHandler);
+
+// Accessibility improvements
+function initializeAccessibility() {
+    // Add focus management for mobile menu
+    const focusableElements = mobileMenu.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
     
-    // Handle resize events
-    window.addEventListener('resize', () => {
-        // Close mobile menu on resize to desktop
-        if (window.innerWidth >= 768 && mobileMenuManager.isOpen) {
-            mobileMenuManager.closeMobileMenu();
+    const firstFocusable = focusableElements[0];
+    const lastFocusable = focusableElements[focusableElements.length - 1];
+    
+    // Trap focus within mobile menu when open
+    mobileMenu.addEventListener('keydown', (event) => {
+        if (!isMobileMenuOpen) return;
+        
+        if (event.key === 'Tab') {
+            if (event.shiftKey) {
+                if (document.activeElement === firstFocusable) {
+                    event.preventDefault();
+                    lastFocusable.focus();
+                }
+            } else {
+                if (document.activeElement === lastFocusable) {
+                    event.preventDefault();
+                    firstFocusable.focus();
+                }
+            }
         }
     });
+}
+
+// Initialize accessibility features
+document.addEventListener('DOMContentLoaded', initializeAccessibility);
+
+// Preload assets for smooth theme transitions
+function preloadAssets() {
+    // Preload fonts
+    const workSansFont = new FontFace('Work Sans', 'url(https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700;900&display=swap)');
+    workSansFont.load().then(() => {
+        document.fonts.add(workSansFont);
+    });
+}
+
+// Error handling for missing elements
+function safeQuerySelector(selector) {
+    try {
+        return document.querySelector(selector);
+    } catch (error) {
+        console.warn(`Element not found: ${selector}`);
+        return null;
+    }
+}
+
+function safeQuerySelectorAll(selector) {
+    try {
+        return document.querySelectorAll(selector);
+    } catch (error) {
+        console.warn(`Elements not found: ${selector}`);
+        return [];
+    }
+}
+
+// Initialize everything when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    preloadAssets();
     
-    // Add loading animation
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-        document.body.style.transition = 'opacity 0.5s ease-in-out';
-    }, 100);
+    // Add smooth reveal animation to page load
+    body.style.opacity = '0';
+    body.style.transition = 'opacity 500ms ease-in-out';
+    
+    // Fade in page after everything is loaded
+    window.addEventListener('load', () => {
+        body.style.opacity = '1';
+    });
 });
 
-// Handle page load
-window.addEventListener('load', () => {
-    // Ensure all images are loaded and layout is complete
-    setTimeout(() => {
-        // Trigger any additional animations or adjustments
-        document.body.classList.add('loaded');
-    }, 200);
-});
+// Export functions for global access (if needed)
+window.toggleTheme = toggleTheme;
+window.toggleMobileMenu = toggleMobileMenu;
+window.scrollToSection = scrollToSection;
+window.scrollToTop = scrollToTop;
+
+// Console message for developers
+console.log('🎨 Shiva Ambati Portfolio - Dual Theme System Loaded');
+console.log('💡 Press Ctrl+Shift+T (or Cmd+Shift+T) to toggle themes');
+console.log('📱 Mobile menu: Hamburger icon or swipe gestures');
