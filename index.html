@@ -1,103 +1,244 @@
-import { motion } from "motion/react";
-import imgShiva1 from "figma:asset/a8444a3333120dca35c47bbced31c455c68f2fa3.png";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiva Ambati - UX Designer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="navigation">
+        <div class="nav-container">
+            <div class="nav-content">
+                <div class="nav-logo">shiva ambati</div>
+                <div class="nav-links">
+                    <a href="#work" class="nav-link">work</a>
+                    <a href="#contact" class="nav-link">contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-function ProfileInfo() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.1 }}
-      className="content-stretch flex flex-col gap-3 md:gap-[11px] items-start justify-start leading-[0] not-italic relative shrink-0 w-full"
-    >
-      <div
-        className="font-['Inter:Semi_Bold',_sans-serif] font-semibold lowercase relative shrink-0 text-[24px] md:text-[32px] text-white w-full"
-      >
-        <p className="leading-[normal] whitespace-nowrap">hi, i'm shiva ambati</p>
-      </div>
-      <div className="font-['Inter:Medium',_sans-serif] font-medium leading-[normal] relative shrink-0 text-[#6c6c6c] text-[14px] md:text-[16px]">
-        <p className="mb-0 text-[rgba(98,98,98,1)]">senior ux designer • 4yr+</p>
-        <p>ex-samsung • m.des @iisc</p>
-      </div>
-    </motion.div>
-  );
-}
+    <div class="main-content">
+        <div class="container">
+            <!-- Header Section -->
+            <div id="contact" class="header-section">
+                <div class="profile-section">
+                    <div class="profile-image" id="profileImage"></div>
+                    <div class="profile-info">
+                        <div class="profile-title">
+                            <p>hi, i'm shiva ambati</p>
+                        </div>
+                        <div class="profile-subtitle">
+                            <p>senior ux designer • 4yr+</p>
+                            <p>ex-samsung • m.des @iisc</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="mailto:shivaambati.design@gmail.com" class="contact-button">contact</a>
+                        <div class="other-links">
+                            <a href="https://www.linkedin.com/in/shiva-ambati/" target="_blank" class="social-link">linkedin</a>
+                            <a href="https://medium.com/@shivaambati" target="_blank" class="social-link">medium</a>
+                            <a href="https://www.behance.net/shivaambati" target="_blank" class="social-link">behance</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-function SocialLinks() {
-  const socialLinks = {
-    linkedin: "https://www.linkedin.com/in/shiva-ambati/",
-    medium: "https://medium.com/@shivaambati",
-    behance: "https://www.behance.net/shivaambati",
-    contact: "mailto:shivaambati.design@gmail.com"
-  };
+            <!-- Separator -->
+            <div class="separator">
+                <svg viewBox="0 0 1059 1" fill="none">
+                    <line opacity="0.6" stroke="#6C6C6C" x2="1058.79" y1="0.5" y2="0.5"></line>
+                </svg>
+            </div>
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.2 }}
-      className="content-stretch flex flex-col gap-6 items-start justify-start leading-[0] lowercase not-italic relative shrink-0 text-[#6c6c6c] text-[12px] md:text-[14px] w-full"
-    >
-      {/* Contact Button */}
-      <motion.a
-        href={socialLinks.contact}
-        whileHover={{ scale: 1.02, backgroundColor: "#f5f5f5" }}
-        whileTap={{ scale: 0.98 }}
-        transition={{ duration: 0.15 }}
-        className="relative shrink-0 cursor-pointer bg-white text-black rounded-md px-4 py-2 hover:bg-gray-100 transition-all duration-150"
-      >
-        <p className="leading-[normal] text-nowrap whitespace-pre text-[14px] text-black">
-          contact
-        </p>
-      </motion.a>
+            <!-- Experience & Education Section -->
+            <div class="experience-education-section">
+                <div class="experience-section">
+                    <div class="section-title">
+                        <p>experience</p>
+                    </div>
+                    <div class="experience-items">
+                        <div class="experience-item" data-delay="0.1">
+                            <div class="item-title">
+                                <p>Head Digital Works</p>
+                            </div>
+                            <div class="item-description">
+                                <p>Real money gaming</p>
+                            </div>
+                        </div>
+                        <div class="experience-item" data-delay="0.2">
+                            <div class="item-title">
+                                <p>Samsung India</p>
+                            </div>
+                            <div class="item-description">
+                                <p>Smartphones (south west asia)</p>
+                            </div>
+                        </div>
+                        <div class="experience-item" data-delay="0.3">
+                            <div class="item-title">
+                                <p>Carestack</p>
+                            </div>
+                            <div class="item-description">
+                                <p>healthcare for u.s markets</p>
+                            </div>
+                        </div>
+                        <div class="experience-item" data-delay="0.4">
+                            <div class="item-title">
+                                <p>Terrific Minds</p>
+                            </div>
+                            <div class="item-description">
+                                <p>design agency</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-      {/* Other Social Links */}
-      <div className="flex flex-wrap gap-4 md:gap-6">
-        {[
-          { name: "linkedin", url: socialLinks.linkedin },
-          { name: "medium", url: socialLinks.medium },
-          { name: "behance", url: socialLinks.behance },
-        ].map((link, index) => (
-          <motion.a
-            key={link.name}
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.02, color: "#ffffff" }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.15 }}
-            className="relative shrink-0 cursor-pointer"
-          >
-            <p className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid leading-[normal] text-nowrap underline whitespace-pre hover:text-white transition-colors duration-150 text-[16px] text-[15px] text-[rgba(98,98,98,1)]">
-              {link.name}
-            </p>
-          </motion.a>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
+                <div class="education-section">
+                    <div class="section-title">
+                        <p>education</p>
+                    </div>
+                    <div class="education-items">
+                        <div class="education-item" data-delay="0.1">
+                            <div class="item-title">
+                                <p>Indian institute of science</p>
+                            </div>
+                            <div class="item-description">
+                                <p>m.des, product design</p>
+                            </div>
+                        </div>
+                        <div class="education-item" data-delay="0.2">
+                            <div class="item-title">
+                                <p>IIItdm jabalpur</p>
+                            </div>
+                            <div class="item-description">
+                                <p>b.tech, mechanical engineering</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-function ProfileSection() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -15 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
-      className="content-stretch flex flex-col gap-8 md:gap-[54px] items-start justify-start relative shrink-0 w-full"
-    >
-      <motion.div
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.2 }}
-        className="bg-center bg-cover bg-no-repeat rounded-[11.83px] shrink-0 w-32 h-32 md:size-40"
-        data-name="shiva 1"
-        style={{ backgroundImage: `url('${imgShiva1}')` }}
-      />
-      <ProfileInfo />
-      <SocialLinks />
-    </motion.div>
-  );
-}
+            <!-- Separator -->
+            <div class="separator">
+                <svg viewBox="0 0 1059 1" fill="none">
+                    <line opacity="0.6" stroke="#6C6C6C" x2="1058.79" y1="0.5" y2="0.5"></line>
+                </svg>
+            </div>
 
-export function Header() {
-  return <ProfileSection />;
-}
+            <!-- Selected Works Section -->
+            <div id="work" class="works-section">
+                <div class="section-title">
+                    <p>SELECTED WORKS</p>
+                </div>
+                <div class="works-items">
+                    <div class="work-item" data-delay="0.1">
+                        <div class="work-title">
+                            <p>From Complexity to Clarity: A23 rummy Game Results</p>
+                        </div>
+                        <div class="work-description">
+                            <p>unified 70+ user journeys into a consistent experience that reduced cognitive load, improved clarity, and boosted next-game joins.</p>
+                        </div>
+                        <div class="work-image">
+                            <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=320&fit=crop')"></div>
+                        </div>
+                    </div>
+
+                    <div class="work-item" data-delay="0.2">
+                        <div class="work-title">
+                            <p>Listening to Gen Z: Insights that Drove 20+Product Opportunities</p>
+                        </div>
+                        <div class="work-description">
+                            <p>Co-led a gen-Z research at NIFT & IIFT on camera, productivity, and health features to drive OS retention and purchase decisions.a qual + quant study.</p>
+                        </div>
+                        <div class="work-image">
+                            <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=320&fit=crop')"></div>
+                        </div>
+                    </div>
+
+                    <div class="work-item" data-delay="0.3">
+                        <div class="work-title">
+                            <p>From Fragmented to Unified: building a design system</p>
+                        </div>
+                        <div class="work-description">
+                            <p>to unify the experience & design language to deliver consistent experiences across the products. Built in close collaboration with PM & developer teams.</p>
+                        </div>
+                        <a href="#" class="work-link">take a look →</a>
+                        <div class="work-image">
+                            <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=320&fit=crop')"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Separator -->
+            <div class="separator">
+                <svg viewBox="0 0 1059 1" fill="none">
+                    <line opacity="0.6" stroke="#6C6C6C" x2="1058.79" y1="0.5" y2="0.5"></line>
+                </svg>
+            </div>
+
+            <!-- Also Did Section -->
+            <div class="also-did-section">
+                <div class="section-title">
+                    <p>also did</p>
+                </div>
+                <div class="also-did-items">
+                    <div class="work-item" data-delay="0.1">
+                        <div class="work-title">
+                            <p>fantastic products and how to design them (IMO)</p>
+                        </div>
+                        <a href="https://medium.com/@shivaambati" target="_blank" class="work-link">read on medium→</a>
+                        <div class="work-image">
+                            <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=320&fit=crop')"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Separator -->
+            <div class="separator">
+                <svg viewBox="0 0 1059 1" fill="none">
+                    <line opacity="0.6" stroke="#6C6C6C" x2="1058.79" y1="0.5" y2="0.5"></line>
+                </svg>
+            </div>
+
+            <!-- Other Interests Section -->
+            <div class="other-interests-section">
+                <div class="section-title">
+                    <p>other interests</p>
+                </div>
+                <div class="interests-content">
+                    <div class="interest-item">
+                        <div class="interest-title">
+                            <p>photography</p>
+                        </div>
+                        <div class="interest-description">
+                            <p>capturing moments and telling stories through the lens. exploring street photography, portraits, and landscapes.</p>
+                        </div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-title">
+                            <p>music production</p>
+                        </div>
+                        <div class="interest-description">
+                            <p>creating ambient and electronic soundscapes. experimenting with synthesizers and digital audio workstations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Separator -->
+            <div class="separator">
+                <svg viewBox="0 0 1059 1" fill="none">
+                    <line opacity="0.6" stroke="#6C6C6C" x2="1058.79" y1="0.5" y2="0.5"></line>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
