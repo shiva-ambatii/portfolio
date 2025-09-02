@@ -1,387 +1,389 @@
-// Global state
-let currentTheme = 'brutalist';
-let isMobileMenuOpen = false;
+// Portfolio Website JavaScript
 
-// DOM elements
-const body = document.body;
-const mobileMenu = document.getElementById('mobileMenu');
-const mobileMenuButton = document.querySelector('.mobile-menu-button');
-
-// Initialize the application
-document.addEventListener('DOMContentLoaded', function() {
-    initializeTheme();
-    initializeEventListeners();
-    initializeAnimations();
-});
-
-// Theme Management
-function initializeTheme() {
-    // Check for saved theme preference or default to 'brutalist'
-    const savedTheme = localStorage.getItem('theme') || 'brutalist';
-    setTheme(savedTheme);
-}
-
-function toggleTheme() {
-    const newTheme = currentTheme === 'brutalist' ? 'soft' : 'brutalist';
-    setTheme(newTheme);
-}
-
-function setTheme(theme) {
-    currentTheme = theme;
-    
-    // Remove existing theme classes
-    body.classList.remove('brutalist', 'soft');
-    
-    // Add new theme class
-    body.classList.add(theme);
-    
-    // Save theme preference
-    localStorage.setItem('theme', theme);
-    
-    // Update theme toggle button aria-label
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (themeToggle) {
-        themeToggle.setAttribute('aria-label', 
-            `Switch to ${theme === 'brutalist' ? 'soft' : 'brutalist'} theme`
-        );
+class PortfolioAnimations {
+    constructor() {
+        this.init();
     }
-    
-    // Trigger animations for theme-specific elements
-    animateThemeTransition();
-}
 
-function animateThemeTransition() {
-    // Add animation classes to cards that need staggered animation in soft mode
-    if (currentTheme === 'soft') {
-        const aboutCards = document.querySelectorAll('.about-card');
-        const projectCards = document.querySelectorAll('.project-card');
+    init() {
+        this.setupIntersectionObserver();
+        this.setupScrollAnimations();
+        this.setupHoverEffects();
+        this.setupSmoothScrolling();
+        this.animateOnLoad();
+    }
+
+    // Setup Intersection Observer for scroll-triggered animations
+    setupIntersectionObserver() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animateElement(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements that should animate on scroll
+        const animatedElements = document.querySelectorAll([
+            '.experience-item',
+            '.education-item',
+            '.work-item',
+            '.separator',
+            '.interests-content'
+        ].join(', '));
+
+        animatedElements.forEach(el => observer.observe(el));
+    }
+
+    // Animate elements when they come into view
+    animateElement(element) {
+        const delay = element.dataset.delay || 0;
         
-        aboutCards.forEach((card, index) => {
-            card.style.transitionDelay = `${index * 100}ms`;
-        });
+        setTimeout(() => {
+            if (element.classList.contains('experience-item')) {
+                this.animateExperienceItem(element);
+            } else if (element.classList.contains('education-item')) {
+                this.animateEducationItem(element);
+            } else if (element.classList.contains('work-item')) {
+                this.animateWorkItem(element);
+            } else if (element.classList.contains('separator')) {
+                this.animateSeparator(element);
+            } else if (element.classList.contains('interests-content')) {
+                this.animateInterestsContent(element);
+            }
+        }, delay * 1000);
+    }
+
+    // Individual animation methods
+    animateExperienceItem(element) {
+        element.style.opacity = '0';
+        element.style.transform = 'translateX(-10px)';
+        element.style.transition = 'all 0.3s ease-out';
         
-        projectCards.forEach((card, index) => {
-            card.style.transitionDelay = `${index * 200}ms`;
-        });
-    } else {
-        // Reset delays for brutalist mode
-        const allCards = document.querySelectorAll('.about-card, .project-card');
-        allCards.forEach(card => {
-            card.style.transitionDelay = '0ms';
+        requestAnimationFrame(() => {
+            element.style.opacity = '1';
+            element.style.transform = 'translateX(0)';
         });
     }
-}
 
-// Mobile Menu Management
-function toggleMobileMenu() {
-    isMobileMenuOpen = !isMobileMenuOpen;
-    
-    if (isMobileMenuOpen) {
-        openMobileMenu();
-    } else {
-        closeMobileMenu();
+    animateEducationItem(element) {
+        element.style.opacity = '0';
+        element.style.transform = 'translateX(10px)';
+        element.style.transition = 'all 0.3s ease-out';
+        
+        requestAnimationFrame(() => {
+            element.style.opacity = '1';
+            element.style.transform = 'translateX(0)';
+        });
     }
-}
 
-function openMobileMenu() {
-    mobileMenu.classList.add('active');
-    body.classList.add('mobile-menu-open');
-    
-    // Prevent body scroll
-    body.style.overflow = 'hidden';
-    
-    // Update mobile menu button aria-label
-    if (mobileMenuButton) {
-        mobileMenuButton.setAttribute('aria-label', 'Close menu');
+    animateWorkItem(element) {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'all 0.4s ease-out';
+        
+        requestAnimationFrame(() => {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        });
     }
-    
-    // Add staggered animation to mobile nav buttons
-    const navButtons = document.querySelectorAll('.mobile-nav-button');
-    navButtons.forEach((button, index) => {
-        button.style.transitionDelay = `${index * 100}ms`;
-        button.classList.add('fade-in');
-    });
-}
 
-function closeMobileMenu() {
-    mobileMenu.classList.remove('active');
-    body.classList.remove('mobile-menu-open');
-    
-    // Restore body scroll
-    body.style.overflow = '';
-    
-    // Update mobile menu button aria-label
-    if (mobileMenuButton) {
-        mobileMenuButton.setAttribute('aria-label', 'Open menu');
-    }
-    
-    // Reset animation classes
-    const navButtons = document.querySelectorAll('.mobile-nav-button');
-    navButtons.forEach(button => {
-        button.style.transitionDelay = '0ms';
-        button.classList.remove('fade-in');
-    });
-}
-
-// Navigation and Scrolling
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
-
-function scrollToSection(sectionId) {
-    // Close mobile menu if open
-    if (isMobileMenuOpen) {
-        closeMobileMenu();
-        isMobileMenuOpen = false;
-    }
-    
-    // Handle special case for hero section contact
-    if (sectionId === 'hero') {
-        const heroElement = document.querySelector('.hero');
-        if (heroElement) {
-            heroElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+    animateSeparator(element) {
+        const line = element.querySelector('line');
+        if (line) {
+            line.style.strokeDasharray = '1059';
+            line.style.strokeDashoffset = '1059';
+            line.style.transition = 'stroke-dashoffset 0.5s ease-out';
+            
+            requestAnimationFrame(() => {
+                line.style.strokeDashoffset = '0';
             });
         }
-        return;
     }
-    
-    // Handle regular sections
-    const element = document.getElementById(sectionId);
-    if (element) {
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
-}
 
-// Event Listeners
-function initializeEventListeners() {
-    // Keyboard shortcuts
-    document.addEventListener('keydown', handleKeyboardShortcuts);
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', handleOutsideClick);
-    
-    // Handle escape key for mobile menu
-    document.addEventListener('keydown', handleEscapeKey);
-    
-    // Scroll-based animations
-    window.addEventListener('scroll', handleScroll);
-    
-    // Resize handler for responsive adjustments
-    window.addEventListener('resize', handleResize);
-}
-
-function handleKeyboardShortcuts(event) {
-    // Ctrl+Shift+T (or Cmd+Shift+T on Mac) to toggle theme
-    if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'T') {
-        event.preventDefault();
-        toggleTheme();
-    }
-    
-    // Escape key to close mobile menu
-    if (event.key === 'Escape' && isMobileMenuOpen) {
-        event.preventDefault();
-        toggleMobileMenu();
-    }
-}
-
-function handleOutsideClick(event) {
-    // Close mobile menu if clicking outside of it
-    if (isMobileMenuOpen && !mobileMenu.contains(event.target) && 
-        !event.target.closest('.mobile-menu-button')) {
-        toggleMobileMenu();
-    }
-}
-
-function handleEscapeKey(event) {
-    if (event.key === 'Escape' && isMobileMenuOpen) {
-        toggleMobileMenu();
-    }
-}
-
-function handleScroll() {
-    // Add scroll-based animations or effects here if needed
-    const scrollY = window.scrollY;
-    
-    // Example: Add subtle parallax effect to background elements in soft mode
-    if (currentTheme === 'soft') {
-        const heroBlurs = document.querySelectorAll('.hero-blur-1, .hero-blur-2');
-        heroBlurs.forEach(blur => {
-            const speed = 0.5;
-            blur.style.transform = `translateY(${scrollY * speed}px)`;
-        });
-    }
-}
-
-function handleResize() {
-    // Close mobile menu on resize to desktop view
-    if (window.innerWidth >= 768 && isMobileMenuOpen) {
-        closeMobileMenu();
-        isMobileMenuOpen = false;
-    }
-    
-    // Update theme toggle position calculation
-    updateThemeTogglePosition();
-}
-
-function updateThemeTogglePosition() {
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (!themeToggle) return;
-    
-    // Reset any inline styles that might interfere
-    if (window.innerWidth >= 768) {
-        themeToggle.style.transform = 'translateX(-50%)';
-    } else {
-        themeToggle.style.transform = '';
-    }
-}
-
-// Animation Initialization
-function initializeAnimations() {
-    // Set up intersection observer for scroll-triggered animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('slide-up');
-            }
-        });
-    }, observerOptions);
-    
-    // Observe elements that should animate on scroll
-    const animateElements = document.querySelectorAll('.about-card, .project-card');
-    animateElements.forEach(element => {
-        observer.observe(element);
-    });
-}
-
-// Utility Functions
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
-// Performance optimized scroll handler
-const optimizedScrollHandler = throttle(handleScroll, 16); // ~60fps
-window.addEventListener('scroll', optimizedScrollHandler);
-
-// Performance optimized resize handler
-const optimizedResizeHandler = debounce(handleResize, 250);
-window.addEventListener('resize', optimizedResizeHandler);
-
-// Accessibility improvements
-function initializeAccessibility() {
-    // Add focus management for mobile menu
-    const focusableElements = mobileMenu.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    
-    const firstFocusable = focusableElements[0];
-    const lastFocusable = focusableElements[focusableElements.length - 1];
-    
-    // Trap focus within mobile menu when open
-    mobileMenu.addEventListener('keydown', (event) => {
-        if (!isMobileMenuOpen) return;
+    animateInterestsContent(element) {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'all 0.4s ease-out';
         
-        if (event.key === 'Tab') {
-            if (event.shiftKey) {
-                if (document.activeElement === firstFocusable) {
-                    event.preventDefault();
-                    lastFocusable.focus();
-                }
-            } else {
-                if (document.activeElement === lastFocusable) {
-                    event.preventDefault();
-                    firstFocusable.focus();
-                }
-            }
+        requestAnimationFrame(() => {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        });
+    }
+
+    // Setup scroll-based animations
+    setupScrollAnimations() {
+        // Parallax effect for project images
+        window.addEventListener('scroll', () => {
+            this.updateParallax();
+        });
+    }
+
+    updateParallax() {
+        const scrollY = window.pageYOffset;
+        const projectImages = document.querySelectorAll('.project-image');
+        
+        projectImages.forEach((image, index) => {
+            const speed = 0.1 + (index * 0.05);
+            const yPos = -(scrollY * speed);
+            image.style.transform = `translateY(${yPos}px)`;
+        });
+    }
+
+    // Setup hover effects
+    setupHoverEffects() {
+        // Navigation logo hover
+        const navLogo = document.querySelector('.nav-logo');
+        if (navLogo) {
+            this.setupHover(navLogo, { scale: 1.02 });
         }
-    });
-}
 
-// Initialize accessibility features
-document.addEventListener('DOMContentLoaded', initializeAccessibility);
+        // Navigation links hover
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            this.setupHover(link, { scale: 1.02, color: '#ffffff' });
+        });
 
-// Preload assets for smooth theme transitions
-function preloadAssets() {
-    // Preload fonts
-    const workSansFont = new FontFace('Work Sans', 'url(https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700;900&display=swap)');
-    workSansFont.load().then(() => {
-        document.fonts.add(workSansFont);
-    });
-}
+        // Profile image hover
+        const profileImage = document.querySelector('.profile-image');
+        if (profileImage) {
+            this.setupHover(profileImage, { scale: 1.02 });
+        }
 
-// Error handling for missing elements
-function safeQuerySelector(selector) {
-    try {
-        return document.querySelector(selector);
-    } catch (error) {
-        console.warn(`Element not found: ${selector}`);
-        return null;
+        // Contact button hover
+        const contactButton = document.querySelector('.contact-button');
+        if (contactButton) {
+            this.setupContactButtonHover(contactButton);
+        }
+
+        // Social links hover
+        const socialLinks = document.querySelectorAll('.social-link');
+        socialLinks.forEach(link => {
+            this.setupHover(link, { scale: 1.02, color: '#ffffff' });
+        });
+
+        // Work links hover
+        const workLinks = document.querySelectorAll('.work-link');
+        workLinks.forEach(link => {
+            this.setupHover(link, { scale: 1.01, color: '#ffffff' });
+        });
+
+        // Project images hover
+        const projectImages = document.querySelectorAll('.project-image');
+        projectImages.forEach(image => {
+            this.setupProjectImageHover(image);
+        });
+    }
+
+    setupHover(element, effects) {
+        const originalTransform = element.style.transform;
+        const originalColor = getComputedStyle(element).color;
+
+        element.addEventListener('mouseenter', () => {
+            let transform = originalTransform;
+            if (effects.scale) {
+                transform += ` scale(${effects.scale})`;
+            }
+            element.style.transform = transform;
+            if (effects.color) {
+                element.style.color = effects.color;
+            }
+        });
+
+        element.addEventListener('mouseleave', () => {
+            element.style.transform = originalTransform;
+            if (effects.color) {
+                element.style.color = originalColor;
+            }
+        });
+    }
+
+    setupContactButtonHover(button) {
+        button.addEventListener('mouseenter', () => {
+            button.style.backgroundColor = '#f5f5f5';
+            button.style.transform = 'scale(1.02)';
+        });
+
+        button.addEventListener('mouseleave', () => {
+            button.style.backgroundColor = '#ffffff';
+            button.style.transform = 'scale(1)';
+        });
+    }
+
+    setupProjectImageHover(image) {
+        image.addEventListener('mouseenter', () => {
+            image.style.transform = 'scale(1.01) translateY(-2px)';
+        });
+
+        image.addEventListener('mouseleave', () => {
+            image.style.transform = 'scale(1) translateY(0)';
+        });
+    }
+
+    // Setup smooth scrolling for navigation links
+    setupSmoothScrolling() {
+        const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const headerOffset = 100;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+
+    // Initial page load animations
+    animateOnLoad() {
+        // Stagger animations for experience items
+        const experienceItems = document.querySelectorAll('.experience-item');
+        experienceItems.forEach((item, index) => {
+            setTimeout(() => {
+                this.animateExperienceItem(item);
+            }, 100 + (index * 100));
+        });
+
+        // Stagger animations for education items
+        const educationItems = document.querySelectorAll('.education-item');
+        educationItems.forEach((item, index) => {
+            setTimeout(() => {
+                this.animateEducationItem(item);
+            }, 200 + (index * 100));
+        });
+    }
+
+    // Utility method to add CSS class with animation
+    addAnimationClass(element, className, delay = 0) {
+        setTimeout(() => {
+            element.classList.add(className);
+        }, delay);
     }
 }
 
-function safeQuerySelectorAll(selector) {
-    try {
-        return document.querySelectorAll(selector);
-    } catch (error) {
-        console.warn(`Elements not found: ${selector}`);
-        return [];
+// Lazy loading for images
+class LazyImageLoader {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.loadImage(entry.target);
+                    imageObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const lazyImages = document.querySelectorAll('.project-image');
+        lazyImages.forEach(img => imageObserver.observe(img));
+    }
+
+    loadImage(imageElement) {
+        // Add loading animation
+        imageElement.style.opacity = '0';
+        imageElement.style.transform = 'scale(0.95)';
+        imageElement.style.transition = 'all 0.3s ease-out';
+        
+        // Simulate image loading
+        setTimeout(() => {
+            imageElement.style.opacity = '1';
+            imageElement.style.transform = 'scale(1)';
+        }, 100);
     }
 }
 
-// Initialize everything when DOM is ready
+// Performance optimizations
+class PerformanceOptimizer {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.optimizeScrollEvents();
+        this.optimizeResizeEvents();
+    }
+
+    optimizeScrollEvents() {
+        let ticking = false;
+
+        const optimizedScroll = () => {
+            // Scroll-based animations go here
+            ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(optimizedScroll);
+                ticking = true;
+            }
+        });
+    }
+
+    optimizeResizeEvents() {
+        let resizeTimeout;
+
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                // Resize-based recalculations go here
+                this.recalculateLayout();
+            }, 150);
+        });
+    }
+
+    recalculateLayout() {
+        // Recalculate any layout-dependent animations
+        console.log('Layout recalculated');
+    }
+}
+
+// Initialize everything when the DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    preloadAssets();
-    
-    // Add smooth reveal animation to page load
-    body.style.opacity = '0';
-    body.style.transition = 'opacity 500ms ease-in-out';
-    
-    // Fade in page after everything is loaded
-    window.addEventListener('load', () => {
-        body.style.opacity = '1';
-    });
+    new PortfolioAnimations();
+    new LazyImageLoader();
+    new PerformanceOptimizer();
+
+    // Add additional interactive behaviors
+    const profileImage = document.getElementById('profileImage');
+    if (profileImage) {
+        profileImage.style.backgroundImage = "url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face')";
+    }
+
+    // Add loading states
+    document.body.classList.add('loaded');
 });
 
-// Export functions for global access (if needed)
-window.toggleTheme = toggleTheme;
-window.toggleMobileMenu = toggleMobileMenu;
-window.scrollToSection = scrollToSection;
-window.scrollToTop = scrollToTop;
+// Add some CSS for loading states
+const loadingStyles = `
+    .project-image {
+        background-color: #1a1a1a;
+        background-blend-mode: overlay;
+    }
+    
+    .loaded .project-image {
+        background-blend-mode: normal;
+    }
+`;
 
-// Console message for developers
-console.log('🎨 Shiva Ambati Portfolio - Dual Theme System Loaded');
-console.log('💡 Press Ctrl+Shift+T (or Cmd+Shift+T) to toggle themes');
-console.log('📱 Mobile menu: Hamburger icon or swipe gestures');
+const styleSheet = document.createElement('style');
+styleSheet.textContent = loadingStyles;
+document.head.appendChild(styleSheet);
