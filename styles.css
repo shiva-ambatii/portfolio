@@ -115,7 +115,7 @@ p {
 .profile-image {
     width: 128px;
     height: 128px;
-    background-image: url('https://github.com/shiva-ambati-ux/portfolio/blob/main/shiva.jpeg');
+    background-image: shiva.jpeg;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
