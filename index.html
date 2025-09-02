@@ -1,466 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shiva Ambati - Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700;900&display=swap" rel="stylesheet">
-</head>
-<body class="brutalist">
-    <!-- Navigation -->
-    <nav class="navigation">
-        <div class="nav-container">
-            <button class="logo-button" onclick="scrollToTop()">
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGV4dCB4PSI1MCIgeT0iNTUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiPnNhLjwvdGV4dD48L3N2Zz4=" alt="sa." class="logo brutal-logo">
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImdyYWQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM2MzY2ZjEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNhODU1ZjciLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48dGV4dCB4PSI1MCIgeT0iNTUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZm9udC1zdHlsZT0iaXRhbGljIiBmaWxsPSJ1cmwoI2dyYWQpIj5zYS48L3RleHQ+PC9zdmc+" alt="sa." class="logo soft-logo">
-            </button>
-            
-            <div class="nav-actions">
-                <!-- Desktop Navigation -->
-                <div class="desktop-nav">
-                    <button class="nav-button" onclick="scrollToSection('work')">
-                        <span class="brutal-text">WORK</span>
-                        <span class="soft-text">Work</span>
-                    </button>
-                    <button class="nav-button" onclick="scrollToSection('about')">
-                        <span class="brutal-text">ABOUT</span>
-                        <span class="soft-text">About</span>
-                    </button>
-                    <button class="nav-button" onclick="scrollToSection('playground')">
-                        <span class="brutal-text">PLAY</span>
-                        <span class="soft-text">Playground</span>
-                    </button>
-                    <button class="nav-button" onclick="scrollToSection('hero')">
-                        <span class="brutal-text">CONTACT</span>
-                        <span class="soft-text">Contact</span>
-                    </button>
-                </div>
+import { motion } from "motion/react";
+import imgShiva1 from "figma:asset/a8444a3333120dca35c47bbced31c455c68f2fa3.png";
 
-                <!-- Mobile Menu Button -->
-                <button class="mobile-menu-button" onclick="toggleMobileMenu()" aria-label="Menu">
-                    <div class="hamburger">
-                        <span class="hamburger-line line-1"></span>
-                        <span class="hamburger-line line-2"></span>
-                        <span class="hamburger-line line-3"></span>
-                    </div>
-                </button>
-            </div>
-        </div>
-    </nav>
+function ProfileInfo() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.1 }}
+      className="content-stretch flex flex-col gap-3 md:gap-[11px] items-start justify-start leading-[0] not-italic relative shrink-0 w-full"
+    >
+      <div
+        className="font-['Inter:Semi_Bold',_sans-serif] font-semibold lowercase relative shrink-0 text-[24px] md:text-[32px] text-white w-full"
+      >
+        <p className="leading-[normal] whitespace-nowrap">hi, i'm shiva ambati</p>
+      </div>
+      <div className="font-['Inter:Medium',_sans-serif] font-medium leading-[normal] relative shrink-0 text-[#6c6c6c] text-[14px] md:text-[16px]">
+        <p className="mb-0 text-[rgba(98,98,98,1)]">senior ux designer • 4yr+</p>
+        <p>ex-samsung • m.des @iisc</p>
+      </div>
+    </motion.div>
+  );
+}
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero">
-        <div class="hero-bg-elements">
-            <div class="hero-gradient"></div>
-            <div class="hero-blur-1"></div>
-            <div class="hero-blur-2"></div>
-        </div>
-        
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="brutal-text">SHIVA AMBATI</span>
-                    <span class="soft-text">Hi, I'm Shiva Ambati</span>
-                </h1>
+function SocialLinks() {
+  const socialLinks = {
+    linkedin: "https://www.linkedin.com/in/shiva-ambati/",
+    medium: "https://medium.com/@shivaambati",
+    behance: "https://www.behance.net/shivaambati",
+    contact: "mailto:shivaambati.design@gmail.com"
+  };
 
-                <div class="hero-subtitle">
-                    <h2 class="hero-role">
-                        <span class="brutal-text">DESIGNING GAMES | EX-SAMSUNG | M.DES @ IISC BENGALURU</span>
-                        <span class="soft-text">Designing Games | Ex-Samsung | M.Des @ IISc Bengaluru</span>
-                    </h2>
-                    
-                    <p class="hero-focus">
-                        <span class="brutal-text">PRODUCT DESIGN X PSYCHOLOGY X TECHNOLOGY</span>
-                        <span class="soft-text">Product Design X Psychology X Technology</span>
-                    </p>
-                </div>
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.2 }}
+      className="content-stretch flex flex-col gap-6 items-start justify-start leading-[0] lowercase not-italic relative shrink-0 text-[#6c6c6c] text-[12px] md:text-[14px] w-full"
+    >
+      {/* Contact Button */}
+      <motion.a
+        href={socialLinks.contact}
+        whileHover={{ scale: 1.02, backgroundColor: "#f5f5f5" }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ duration: 0.15 }}
+        className="relative shrink-0 cursor-pointer bg-white text-black rounded-md px-4 py-2 hover:bg-gray-100 transition-all duration-150"
+      >
+        <p className="leading-[normal] text-nowrap whitespace-pre text-[14px] text-black">
+          contact
+        </p>
+      </motion.a>
 
-                <div class="hero-description">
-                    <p>
-                        <span class="brutal-text">I'M PASSIONATE ABOUT PRODUCTS & HOW THEY IMPACT LIVES. ON A MISSION TO MERGE TECH KNOW HOW WITH HUMAN PSYCHOLOGY FOR IMPACTFUL USER EXPERIENCES. OBSESSED WITH DECODING THE "WHY" OF USER BEHAVIOUR, CONNECTING DOTS & SIMPLIFYING COMPLEX PROBLEMS.</span>
-                        <span class="soft-text">I'm passionate about products & how they impact lives. On a mission to merge tech know how with human psychology for impactful user experiences. Obsessed with decoding the "why" of user behaviour, connecting dots & simplifying complex problems.</span>
-                    </p>
-                </div>
+      {/* Other Social Links */}
+      <div className="flex flex-wrap gap-4 md:gap-6">
+        {[
+          { name: "linkedin", url: socialLinks.linkedin },
+          { name: "medium", url: socialLinks.medium },
+          { name: "behance", url: socialLinks.behance },
+        ].map((link, index) => (
+          <motion.a
+            key={link.name}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.02, color: "#ffffff" }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.15 }}
+            className="relative shrink-0 cursor-pointer"
+          >
+            <p className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid leading-[normal] text-nowrap underline whitespace-pre hover:text-white transition-colors duration-150 text-[16px] text-[15px] text-[rgba(98,98,98,1)]">
+              {link.name}
+            </p>
+          </motion.a>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
 
-                <!-- Social Links -->
-                <div class="hero-social">
-                    <a href="https://www.linkedin.com/in/shiva-ambati" target="_blank" rel="noopener noreferrer" class="social-link">
-                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                    </a>
-                    
-                    <a href="mailto:Shivaambati.design@gmail.com" class="social-link">
-                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                    </a>
-                    
-                    <a href="https://medium.com/@shivaambati" target="_blank" rel="noopener noreferrer" class="social-link">
-                        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+function ProfileSection() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -15 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
+      className="content-stretch flex flex-col gap-8 md:gap-[54px] items-start justify-start relative shrink-0 w-full"
+    >
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.2 }}
+        className="bg-center bg-cover bg-no-repeat rounded-[11.83px] shrink-0 w-32 h-32 md:size-40"
+        data-name="shiva 1"
+        style={{ backgroundImage: `url('${imgShiva1}')` }}
+      />
+      <ProfileInfo />
+      <SocialLinks />
+    </motion.div>
+  );
+}
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="about-bg-elements">
-            <div class="about-gradient"></div>
-            <div class="about-blur"></div>
-        </div>
-        
-        <div class="about-container">
-            <div class="about-cards">
-                <div class="about-card" data-index="0">
-                    <div class="card-header">
-                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="3"></circle>
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                        </svg>
-                        <h3 class="card-title">
-                            <span class="brutal-text">A FIRST PRINCIPLE THINKER</span>
-                            <span class="soft-text">A First Principle Thinker</span>
-                        </h3>
-                    </div>
-                    <p class="card-description">
-                        <span class="brutal-text">BREAKING DOWN PROBLEMS, PROCESS & LOGIC TO THEIR CORE TO CREATE UNIQUE & ROBUST SOLUTIONS WITH THE FUNDAMENTAL BLOCKS.</span>
-                        <span class="soft-text">Breaking down problems, process & logic to their core to create unique & robust solutions with the fundamental blocks.</span>
-                    </p>
-                </div>
-
-                <div class="about-card" data-index="1">
-                    <div class="card-header">
-                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                        <h3 class="card-title">
-                            <span class="brutal-text">GOING BEYOND OBVIOUS</span>
-                            <span class="soft-text">Going beyond obvious</span>
-                        </h3>
-                    </div>
-                    <p class="card-description">
-                        <span class="brutal-text">UNCOVERING THE HIDDEN INSIGHTS BEYOND THE OBVIOUS DATA, CONNECTING DOTS & FINDING PATTERNS.</span>
-                        <span class="soft-text">Uncovering the hidden insights beyond the obvious data, connecting dots & finding patterns.</span>
-                    </p>
-                </div>
-
-                <div class="about-card" data-index="2">
-                    <div class="card-header">
-                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <circle cx="12" cy="12" r="6"></circle>
-                            <circle cx="12" cy="12" r="2"></circle>
-                        </svg>
-                        <h3 class="card-title">
-                            <span class="brutal-text">OUTCOME OVER OUTPUT</span>
-                            <span class="soft-text">Outcome over Output</span>
-                        </h3>
-                    </div>
-                    <p class="card-description">
-                        <span class="brutal-text">PUT EFFORTS INTO THE TASKS & ACTIVITIES THAT CLEARLY IMPACTS PRODUCT VISION. PRIORITIZE OUTCOME & IMPACT OVER OUTPUT & PROCESS.</span>
-                        <span class="soft-text">Put efforts into the tasks & activities that clearly impacts product vision. Prioritize outcome & impact over output & process.</span>
-                    </p>
-                </div>
-
-                <div class="about-card" data-index="3">
-                    <div class="card-header">
-                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
-                        </svg>
-                        <h3 class="card-title">
-                            <span class="brutal-text">INTERDISCIPLINARY & VERSATILE</span>
-                            <span class="soft-text">Interdisciplinary & Versatile</span>
-                        </h3>
-                    </div>
-                    <p class="card-description">
-                        <span class="brutal-text">VALUE MULTIPLIER THROUGH UNIQUE & MEANINGFUL CONTRIBUTION ACROSS THE PRODUCT DEVELOPMENT CYCLE.</span>
-                        <span class="soft-text">Value multiplier through unique & meaningful contribution across the product development cycle.</span>
-                    </p>
-                </div>
-
-                <div class="about-card" data-index="4">
-                    <div class="card-header">
-                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="8" x2="12" y2="12"></line>
-                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                        </svg>
-                        <h3 class="card-title">
-                            <span class="brutal-text">CRITICALLY OBJECTIVE & OPEN MINDED</span>
-                            <span class="soft-text">Critically Objective & Open Minded</span>
-                        </h3>
-                    </div>
-                    <p class="card-description">
-                        <span class="brutal-text">RATIONAL & EVIDENCE DRIVEN DECISIONS TO ELIMINATE INTERNAL & EXTERNAL BIAS.</span>
-                        <span class="soft-text">Rational & evidence driven decisions to eliminate internal & external bias.</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="work" class="projects">
-        <div class="projects-bg-elements">
-            <div class="projects-gradient"></div>
-            <div class="projects-blur"></div>
-        </div>
-        
-        <div class="projects-container">
-            <!-- Project 1 -->
-            <div class="project-card" data-index="0">
-                <div class="project-container">
-                    <div class="project-grid">
-                        <div class="project-content">
-                            <div class="project-header">
-                                <div class="project-meta">
-                                    <span class="project-year">2023</span>
-                                    <span class="project-company">
-                                        <span class="brutal-text">SAMSUNG</span>
-                                        <span class="soft-text">Samsung</span>
-                                    </span>
-                                </div>
-                                <h3 class="project-title">
-                                    <span class="brutal-text">MAKING PHOTO EDITS EFFORTLESS</span>
-                                    <span class="soft-text">Making Photo Edits Effortless</span>
-                                </h3>
-                            </div>
-                            
-                            <div class="project-details">
-                                <div class="project-section">
-                                    <h4 class="section-title">
-                                        <span class="brutal-text">PROBLEM:</span>
-                                        <span class="soft-text">Problem</span>
-                                    </h4>
-                                    <p class="section-description">
-                                        <span class="brutal-text">USERS CAPTURE A LOT OF PHOTOS BUT ONLY FEW END UP SHARE WORTHY. OFTEN DUE TO LACK OF EDITING SKILL, KNOWLEDGE & TIME</span>
-                                        <span class="soft-text">Users capture a lot of photos but only few end up share worthy. Often due to lack of editing skill, knowledge & time</span>
-                                    </p>
-                                </div>
-                                
-                                <div class="project-section">
-                                    <h4 class="section-title">
-                                        <span class="brutal-text">APPROACH:</span>
-                                        <span class="soft-text">Approach</span>
-                                    </h4>
-                                    <p class="section-description">
-                                        <span class="brutal-text">CONCEPTUALISED AN AI-SUGGESTED NUDGE BASED EDIT EXPERIENCE THAT SURFACE AT THE RIGHT MOMENT MINIMISING FRICTION, MAXIMISING DELIGHT.</span>
-                                        <span class="soft-text">Conceptualised an AI-suggested nudge based edit experience that surface at the right moment minimising friction, maximising delight.</span>
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="project-link">
-                                <a href="#" class="project-button">
-                                    <span class="brutal-text">VIEW CASE STUDY</span>
-                                    <span class="soft-text">View case study</span>
-                                    → 
-                                </a>
-                            </div>
-                        </div>
-                        <div class="project-image">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDAwMDAwIi8+PC9zdmc+" alt="Making Photo Edits Effortless">
-                        </div>
-                    </div>
-                </div>
-                <div class="project-divider"></div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="project-card" data-index="1">
-                <div class="project-container">
-                    <div class="project-grid">
-                        <div class="project-content">
-                            <div class="project-header">
-                                <div class="project-meta">
-                                    <span class="project-year">2023</span>
-                                    <span class="project-company">
-                                        <span class="brutal-text">SAMSUNG</span>
-                                        <span class="soft-text">Samsung</span>
-                                    </span>
-                                </div>
-                                <h3 class="project-title">
-                                    <span class="brutal-text">REIMAGINING SEARCH</span>
-                                    <span class="soft-text">Reimagining Search</span>
-                                </h3>
-                            </div>
-                            
-                            <div class="project-details">
-                                <div class="project-section">
-                                    <h4 class="section-title">
-                                        <span class="brutal-text">PROBLEM:</span>
-                                        <span class="soft-text">Problem</span>
-                                    </h4>
-                                    <p class="section-description">
-                                        <span class="brutal-text">USERS OFTEN UNAWARE OF SOME ADVANCED NATIVE FEATURES END UP INSTALLING THIRD PARTY APPS.</span>
-                                        <span class="soft-text">Users often unaware of some advanced native features end up installing third party apps.</span>
-                                    </p>
-                                </div>
-                                
-                                <div class="project-section">
-                                    <h4 class="section-title">
-                                        <span class="brutal-text">APPROACH:</span>
-                                        <span class="soft-text">Approach</span>
-                                    </h4>
-                                    <p class="section-description">
-                                        <span class="brutal-text">SEARCH NEEDED TO UNDERSTAND USER INTENT, NOT JUST KEYWORDS. IT HAD TO FEEL INTUITIVE YET POWERFUL. ENHANCED SEARCH WITH SYNONYMS, INTENT MAPPING, AND CONTEXTUAL QUICK ACTIONS</span>
-                                        <span class="soft-text">Search needed to understand user intent, not just keywords. It had to feel intuitive yet powerful. Enhanced search with synonyms, intent mapping, and contextual quick actions</span>
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="project-link">
-                                <a href="#" class="project-button">
-                                    <span class="brutal-text">VIEW PROTOTYPE</span>
-                                    <span class="soft-text">View prototype</span>
-                                    → 
-                                </a>
-                            </div>
-                        </div>
-                        <div class="project-image">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDAwMDAwIi8+PC9zdmc+" alt="Reimagining Search">
-                        </div>
-                    </div>
-                </div>
-                <div class="project-divider"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-bg-elements">
-            <div class="footer-gradient"></div>
-        </div>
-        
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-copyright">
-                    <p>
-                        <span class="brutal-text">SHIVA AMBATI ⏤ 2024</span>
-                        <span class="soft-text">Shiva Ambati ⏤ 2024</span>
-                    </p>
-                </div>
-                <div class="footer-links">
-                    <a href="https://www.linkedin.com/in/shiva-ambati" target="_blank" rel="noopener noreferrer" class="footer-link">
-                        <span class="brutal-text">LINKEDIN</span>
-                        <span class="soft-text">LinkedIn</span>
-                    </a>
-                    <a href="mailto:Shivaambati.design@gmail.com" class="footer-link">
-                        <span class="brutal-text">MAIL</span>
-                        <span class="soft-text">Mail</span>
-                    </a>
-                    <a href="https://medium.com/@shivaambati" target="_blank" rel="noopener noreferrer" class="footer-link">
-                        <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
-                        </svg>
-                        <span class="brutal-text">MEDIUM</span>
-                        <span class="soft-text">Medium</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Fixed Theme Toggle -->
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-        <div class="toggle-container">
-            <!-- Background Container -->
-            <div class="toggle-background"></div>
-            
-            <!-- Background Icons -->
-            <div class="toggle-icons">
-                <svg class="toggle-icon square-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                </svg>
-                <svg class="toggle-icon circle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                </svg>
-            </div>
-            
-            <!-- Sliding Element -->
-            <div class="toggle-slider">
-                <svg class="slider-icon square-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                </svg>
-                <svg class="slider-icon circle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                </svg>
-            </div>
-        </div>
-    </button>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-        </button>
-
-        <div class="mobile-menu-content">
-            <div class="mobile-menu-logo">
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGV4dCB4PSI1MCIgeT0iNTUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiPnNhLjwvdGV4dD48L3N2Zz4=" alt="sa." class="brutal-logo">
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImdyYWQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM2MzY2ZjEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNhODU1ZjciLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48dGV4dCB4PSI1MCIgeT0iNTUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZm9udC1zdHlsZT0iaXRhbGljIiBmaWxsPSJ1cmwoI2dyYWQpIj5zYS48L3RleHQ+PC9zdmc+" alt="sa." class="soft-logo">
-            </div>
-
-            <nav class="mobile-nav">
-                <button class="mobile-nav-button" onclick="scrollToSection('work')" data-index="0">
-                    <span class="brutal-text">WORK</span>
-                    <span class="soft-text">Work</span>
-                </button>
-                <button class="mobile-nav-button" onclick="scrollToSection('about')" data-index="1">
-                    <span class="brutal-text">ABOUT</span>
-                    <span class="soft-text">About</span>
-                </button>
-                <button class="mobile-nav-button" onclick="scrollToSection('playground')" data-index="2">
-                    <span class="brutal-text">PLAYGROUND</span>
-                    <span class="soft-text">Playground</span>
-                </button>
-            </nav>
-
-            <div class="mobile-social">
-                <p class="mobile-social-title">
-                    <span class="brutal-text">CONNECT WITH ME</span>
-                    <span class="soft-text">Connect with me</span>
-                </p>
-                
-                <div class="mobile-social-links">
-                    <a href="https://www.linkedin.com/in/shiva-ambati" target="_blank" rel="noopener noreferrer" class="mobile-social-link">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                    </a>
-                    
-                    <a href="mailto:Shivaambati.design@gmail.com" class="mobile-social-link">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                    </a>
-                    
-                    <a href="https://medium.com/@shivaambati" target="_blank" rel="noopener noreferrer" class="mobile-social-link">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+export function Header() {
+  return <ProfileSection />;
+}
