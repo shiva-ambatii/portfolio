@@ -92,16 +92,6 @@ p {
     width: 100%;
 }
 
-.header-background {
-    aspect-ratio: 1306/122;
-    background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1306&h=122&fit=crop');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    flex-shrink: 0;
-    margin-bottom: 32px;
-}
 
 .profile-section {
     display: flex;
@@ -430,11 +420,11 @@ p {
 
 /* Project Images */
 .project-image-1 {
-    background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=320&fit=crop');
+    background-image: url('./shiva.jpeg');
 }
 
 .project-image-2 {
-    background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=320&fit=crop');
+    background-image: url('./shiva.jpg');
 }
 
 .project-image-3 {
