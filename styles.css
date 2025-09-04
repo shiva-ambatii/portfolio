@@ -115,7 +115,7 @@ p {
 .profile-image {
     width: 128px;
     height: 128px;
-    background-image: shiva.jpeg;
+    background-image: url('./shiva.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
