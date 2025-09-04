@@ -420,11 +420,11 @@ p {
 
 /* Project Images */
 .project-image-1 {
-    background-image: url('./shiva.jpeg');
+    background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=320&fit=crop');
 }
 
 .project-image-2 {
-    background-image: url('./shiva.jpg');
+    background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=320&fit=crop');
 }
 
 .project-image-3 {
