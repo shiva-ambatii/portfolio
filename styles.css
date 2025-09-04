@@ -103,7 +103,6 @@ p {
     margin-bottom: 32px;
 }
 
-
 .profile-section {
     display: flex;
     flex-direction: column;
@@ -179,12 +178,6 @@ p {
   width: 100%;
   line-height: 1; /* Better readability than 0 */
 }
-
-.social-links:hover {
-  background-color: #fff;
-    color: #000;
-
-
 
 .social-link {
   padding: 8px 12px;
@@ -431,11 +424,11 @@ p {
 
 /* Project Images */
 .project-image-1 {
-    background-image: url('./shiva.jpeg');
+    background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=320&fit=crop');
 }
 
 .project-image-2 {
-    background-image: url('./shiva.jpg');
+    background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=320&fit=crop');
 }
 
 .project-image-3 {
