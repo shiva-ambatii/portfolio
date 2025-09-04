@@ -106,8 +106,7 @@ p {
 .profile-section {
     display: flex;
     flex-direction: column;
-    gap: 32px;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
 }
@@ -175,7 +174,7 @@ p {
   text-transform: lowercase;
   font-size: 12px;
   color: #6c6c6c;
-  width: 100%;
+
   line-height: 1; /* Better readability than 0 */
 }
 
