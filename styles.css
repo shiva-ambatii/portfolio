@@ -159,11 +159,15 @@ p {
     color: #6c6c6c;
     position: relative;
     flex-shrink: 0;
+        text-transform: lowercase;
+
 }
 
 .profile-subtitle p {
     color: #6c6c6c;
     margin-bottom: 0;
+        text-transform: lowercase;
+
 }
 .social{
     display: flex;
