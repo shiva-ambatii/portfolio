@@ -154,7 +154,7 @@ p {
 
 .profile-subtitle {
     font-family: 'Inter', sans-serif;
-    font-weight: 500;
+    font-weight: normal;
     line-height: normal;
     font-size: 14px;
     color: #6c6c6c;
@@ -531,7 +531,7 @@ p {
     }
     
     .profile-section {
-        gap: 54px;
+        gap: 24px;
         align-items: flex-start;
     }
     
