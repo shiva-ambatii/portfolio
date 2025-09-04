@@ -67,7 +67,9 @@ p {
     text-decoration: none;
     cursor: pointer;
 }
-
+.nav-link:hover  {
+    color: #fff;
+}
 /* Main content */
 .main-content {
     position: relative;
