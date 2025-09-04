@@ -424,19 +424,19 @@ p {
 
 /* Project Images */
 .project-image-1 {
-    background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=320&fit=crop');
+    background-image: url('./result.png?w=800&h=320&fit=crop');
 }
 
 .project-image-2 {
-    background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=320&fit=crop');
+    background-image: url('./research.png?w=800&h=320&fit=crop');
 }
 
 .project-image-3 {
-    background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=320&fit=crop');
+    background-image: url('./tweak.png?w=800&h=320&fit=crop');
 }
 
 .project-image-4 {
-    background-image: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=320&fit=crop');
+    background-image: url('./medium.png?w=800&h=320&fit=crop');
 }
 
 /* Other Interests */
