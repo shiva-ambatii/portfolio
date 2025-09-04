@@ -167,15 +167,16 @@ p {
 
 .social-links {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    align-items: flex-start;
-    justify-content: flex-start;
-    line-height: 0;
-    text-transform: lowercase;
-    width: 100%;
-    font-size: 12px;
-    color: #6c6c6c;
+  flex-direction: row; /* Ensure items are in a horizontal line */
+  align-items: center; /* Vertically center items */
+  justify-content: flex-start; /* Align items to the left */
+  gap: 24px; /* Space between items */
+  padding: 8px 0; /* Top & bottom padding for breathing space */
+  text-transform: lowercase;
+  font-size: 12px;
+  color: #6c6c6c;
+  width: 100%;
+  line-height: 1; /* Better readability than 0 */
 }
 
 .social-link {
