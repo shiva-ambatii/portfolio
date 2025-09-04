@@ -163,6 +163,15 @@ p {
     color: #6c6c6c;
     margin-bottom: 0;
 }
+.social{
+    display: flex;
+  flex-direction: row; /* Ensure items are in a horizontal line */
+  align-items: center; /* Vertically center items */
+  justify-content: flex-start; /* Align items to the left */
+  gap: 24px; /* Space between items */
+  padding: 8px 0; /* Top & bottom padding for breathing space */
+  text-transform: lowercase;
+}
 
 .social-links {
     display: flex;
@@ -177,7 +186,9 @@ p {
 
   line-height: 1; /* Better readability than 0 */
 }
-
+.social-links:hover {
+    color: #fff;
+}
 .social-link {
   padding: 8px 12px;
   text-decoration: none;
