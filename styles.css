@@ -112,6 +112,8 @@ p {
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
+    padding: 54px 0px 0px 0px;
+
 }
 
 .profile-image {
@@ -123,7 +125,6 @@ p {
     background-repeat: no-repeat;
     border-radius: 11.83px;
     flex-shrink: 0;
-    padding: 54px 0px 0px 0px;
 
 }
 
