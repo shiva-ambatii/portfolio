@@ -179,6 +179,12 @@ p {
   line-height: 1; /* Better readability than 0 */
 }
 
+.social-links:hover {
+  background-color: #fff;
+    color: #000;
+
+
+
 .social-link {
   padding: 8px 12px;
   text-decoration: none;
