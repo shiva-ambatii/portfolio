@@ -395,8 +395,8 @@ p {
 }
 
 .work-link, .work-link-external {
-	padding: 6px 8px;
-    margin: 4px;
+	padding: 8px 8px;
+    margin: 0px 4px;
   text-decoration: none;
   color: #fff;
   background-color: #333;
