@@ -402,7 +402,7 @@ p {
   background-color: #333;
   border-radius: 8px;
   transition: background 0.3s;
-    font-size: 16px;
+    font-size: 14px;
   
 }
 
@@ -416,7 +416,7 @@ p {
     text-underline-position: from-font;
     text-decoration: solid underline;
     line-height: normal;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .work-image {
