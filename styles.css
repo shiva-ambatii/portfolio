@@ -184,14 +184,14 @@ p {
 }
 
 .social-links {
-    display: flex;
+	display: flex;
   flex-direction: row; /* Ensure items are in a horizontal line */
   align-items: center; /* Vertically center items */
   justify-content: flex-start; /* Align items to the left */
   gap: 24px; /* Space between items */
   padding: 8px 0; /* Top & bottom padding for breathing space */
   text-transform: lowercase;
-  font-size: 12px;
+  font-size: 14px;
   color: #6c6c6c;
 
   line-height: 1; /* Better readability than 0 */
@@ -402,7 +402,7 @@ p {
   background-color: #333;
   border-radius: 8px;
   transition: background 0.3s;
-    font-size: 14px;
+    font-size: 16px;
   
 }
 
@@ -416,7 +416,7 @@ p {
     text-underline-position: from-font;
     text-decoration: solid underline;
     line-height: normal;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .work-image {
