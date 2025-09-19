@@ -451,14 +451,18 @@ p {
 }
 
 .project-image-2 {
-    background-image: url('./research.png?w=800&h=320&fit=crop');
+    background-image: url('./drop.png?w=800&h=320&fit=crop');
 }
 
 .project-image-3 {
-    background-image: url('./tweak.png?w=800&h=320&fit=crop');
+    background-image: url('./khoj.png?w=800&h=320&fit=crop');
 }
 
 .project-image-4 {
+    background-image: url('./tweak.png?w=800&h=320&fit=crop');
+}
+
+.project-image-5 {
     background-image: url('./medium.png?w=800&h=320&fit=crop');
 }
 
