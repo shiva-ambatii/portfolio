@@ -355,6 +355,7 @@ p {
     width: 100%;
     position: relative;
     flex-shrink: 0;
+    margin: 40px 0px;
 }
 
 .work-title {
