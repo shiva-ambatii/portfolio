@@ -349,7 +349,7 @@ p {
 .work-item {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 14px;
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
