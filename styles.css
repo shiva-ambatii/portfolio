@@ -338,7 +338,7 @@ p {
 .works-items, .also-did-items {
     display: flex;
     flex-direction: column;
-    gap: 120px;
+    gap: 64px;
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
@@ -349,13 +349,13 @@ p {
 .work-item {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 18px;
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
     position: relative;
     flex-shrink: 0;
-    margin: 40px 0;
+    margin-bottom: 40px;
 }
 
 .work-title {
