@@ -447,7 +447,7 @@ p {
 
 /* Project Images */
 .project-image-1 {
-    background-image: url('./result.png?w=800&h=320&fit=crop');
+    background-image: url('./Result.png?w=800&h=320&fit=crop');
 }
 
 .project-image-2 {
